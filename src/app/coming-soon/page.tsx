@@ -22,8 +22,8 @@ export default function ComingSoonPage() {
     <div className="container-page py-8 sm:py-12">
       <Breadcrumbs items={[{ name: "Coming Soon", path: "/coming-soon" }]} />
       <header className="relative mt-4 mb-12 grid items-center gap-6 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-grape-soft via-pink-soft to-sky-soft p-8 sm:p-12 md:grid-cols-[1.4fr_1fr]">
-        <Sparkle className="absolute top-8 right-1/3 h-8 w-8 animate-sparkle" color="#FFC93C" />
-        <Sparkle className="absolute bottom-10 left-1/2 h-5 w-5 animate-sparkle [animation-delay:1.2s]" color="#7B5CFF" />
+        <Sparkle className="absolute top-8 right-1/3 h-8 w-8 animate-sparkle" color="#FAAF04" />
+        <Sparkle className="absolute bottom-10 left-1/2 h-5 w-5 animate-sparkle [animation-delay:1.2s]" color="#7721C2" />
         <div>
           <span className="eyebrow">Sneak peek</span>
           <h1 className="mt-4 font-display text-4xl font-bold sm:text-6xl">

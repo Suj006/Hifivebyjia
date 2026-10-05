@@ -49,15 +49,15 @@ Node 20.9+ is required (Node 22 recommended).
 | FAQ, shipping, returns, privacy, terms | `src/content/help.ts` |
 | Design colours & fonts | `src/app/globals.css` (`@theme` tokens) |
 
-### Adding the official logo
+### Official logo
 
-1. Save the logo file exactly as supplied to `public/brand/logo.png` (or `.svg`/`.webp`).
-2. In `src/config/site.ts`, set:
-   ```ts
-   logo: { src: "/brand/logo.png", width: <real px width>, height: <real px height>, alt: "Hi 5 by Jia" },
-   ```
-The logo is rendered as-is (no recolouring, cropping or effects). Until then a plain text wordmark is shown.
-Optionally re-tune the colour tokens in `globals.css` to match the logo palette.
+The logo lives at `public/brand/logo.jpg` and is configured in `siteConfig.logo` (`src/config/site.ts`).
+It is always rendered exactly as supplied — only scaled, never recoloured, cropped, redrawn or given effects.
+Favicons (`src/app/icon.png`, `src/app/apple-icon.png`) are straight resizes of the same file.
+To update it, replace the file (keep the name or update `logo.src`, `width`, `height`) and re-create the favicons:
+`convert public/brand/logo.jpg -resize 192x192 src/app/icon.png` (and `-resize 180x180 src/app/apple-icon.png`).
+
+The site palette in `globals.css` is sampled from the logo: pink `#ED0C68`, teal `#01BDC6`, yellow `#FAAF04`, purple `#7721C2`.
 
 ### Product images
 
@@ -73,7 +73,6 @@ are demo listings showing how adult/gift products look. They display a "Sample" 
 
 ### Things to confirm before launch
 
-- [ ] Add the official logo (see above)
 - [ ] Set `NEXT_PUBLIC_WHATSAPP_NUMBER` to a **business** WhatsApp number
 - [ ] Confirm Alphabet Bead Bracelet price (currently ₹80) and all stock counts
 - [ ] Confirm shipping rate (₹50) and free-shipping threshold (₹499) in `site.ts`

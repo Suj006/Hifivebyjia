@@ -24,12 +24,15 @@ export const siteConfig = {
   language: "en-IN",
 
   /**
-   * Official logo. Place the logo file supplied by the brand at
-   * `public/brand/logo.png` and fill in its real pixel size below.
-   * While `logo` is `null`, a plain text wordmark is shown instead —
-   * the official logo is never redrawn.
+   * Official logo — `public/brand/logo.jpg`, used exactly as supplied
+   * (no recolouring, cropping, redrawing or effects). Only scaled for display.
    */
-  logo: null as null | { src: string; width: number; height: number; alt: string },
+  logo: { src: "/brand/logo.jpg", width: 1254, height: 1254, alt: "Hi 5 by Jia logo" } as null | {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+  },
 
   contact: {
     email: "hifivebyjia@gmail.com",

@@ -16,8 +16,8 @@ export function ComingSoonCard({ product }: { product: Product }) {
           className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
         />
         <span className="chip absolute top-3 left-3 bg-grape text-white shadow-sm">✨ Coming soon</span>
-        <Sparkle className="absolute top-4 right-6 h-6 w-6 animate-sparkle" color="#FFC93C" />
-        <Sparkle className="absolute right-14 bottom-6 h-4 w-4 animate-sparkle [animation-delay:0.8s]" color="#FF4F9A" />
+        <Sparkle className="absolute top-4 right-6 h-6 w-6 animate-sparkle" color="#FAAF04" />
+        <Sparkle className="absolute right-14 bottom-6 h-4 w-4 animate-sparkle [animation-delay:0.8s]" color="#ED0C68" />
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display text-xl font-bold">

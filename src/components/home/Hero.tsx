@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Blob, Sparkle, Squiggle } from "@/components/brand/Decor";
+import { Logo } from "@/components/brand/Logo";
 import { Nainu } from "@/components/brand/Nainu";
 import { ProductImage } from "@/components/product/ProductImage";
 import { heroCopy } from "@/content/brand";
 import { getProductBySlug } from "@/lib/catalog";
 
 const FLOATING = [
-  { slug: "alphabet-bead-bracelet", className: "left-[2%] top-[6%] w-28 sm:w-36 lg:w-44 rotate-[-10deg]", delay: "0s" },
   { slug: "bead-bracelet", className: "right-[0%] top-[0%] w-24 sm:w-32 lg:w-40 rotate-[12deg]", delay: "-2s" },
   { slug: "keychain", className: "right-[4%] bottom-[8%] w-20 sm:w-28 lg:w-32 rotate-[-6deg]", delay: "-4s" },
 ];
@@ -23,7 +23,7 @@ export function Hero() {
       <div className="container-page relative grid items-center gap-10 pt-6 sm:pt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6 lg:pt-14">
         <div className="relative z-10 text-center lg:text-left">
           <span className="eyebrow animate-fade-up">
-            <Sparkle className="h-3.5 w-3.5" color="#FFC93C" /> {heroCopy.eyebrow}
+            <Sparkle className="h-3.5 w-3.5" color="#FAAF04" /> {heroCopy.eyebrow}
           </span>
           <h1 id="hero-title" className="mt-5 animate-fade-up text-[2.6rem] leading-[1.02] font-bold [animation-delay:80ms] sm:text-6xl lg:text-7xl">
             Made with <span className="relative inline-block text-pink-deep">
@@ -72,9 +72,15 @@ export function Hero() {
               </Link>
             );
           })}
-          <Sparkle className="absolute top-[36%] left-[4%] h-7 w-7 animate-sparkle" color="#FFC93C" />
-          <Sparkle className="absolute top-[18%] right-[30%] h-5 w-5 animate-sparkle [animation-delay:1s]" color="#36C5F0" />
-          <Sparkle className="absolute right-[2%] bottom-[40%] h-6 w-6 animate-sparkle [animation-delay:1.6s]" color="#FF4F9A" />
+          {/* Official logo, shown as supplied. Only its container animates. */}
+          <div className="absolute top-[-2%] left-[-3%] w-[44%] animate-bounce-in [animation-delay:200ms]">
+            <div className="animate-float-slow rounded-[2rem] bg-white p-2 shadow-soft sm:rounded-[2.5rem]">
+              <Logo asLink={false} priority className="h-auto w-full [&_img]:h-auto [&_img]:w-full" sizes="(min-width: 1024px) 230px, 45vw" />
+            </div>
+          </div>
+          <Sparkle className="absolute top-[46%] left-[4%] h-7 w-7 animate-sparkle" color="#FAAF04" />
+          <Sparkle className="absolute top-[18%] right-[30%] h-5 w-5 animate-sparkle [animation-delay:1s]" color="#01BDC6" />
+          <Sparkle className="absolute right-[2%] bottom-[40%] h-6 w-6 animate-sparkle [animation-delay:1.6s]" color="#ED0C68" />
           <div className="absolute bottom-[14%] left-[0%] animate-float rounded-2xl bg-white px-4 py-2 font-display font-bold shadow-soft [animation-delay:-3s]">
             Hi 5! <span aria-hidden>✋</span>
           </div>

@@ -27,8 +27,8 @@ export default function AboutPage() {
           <div className="mt-8 grid items-center gap-10 lg:grid-cols-[1fr_1.2fr]">
             <div className="relative mx-auto w-64 sm:w-80">
               <div className="absolute inset-6 rounded-full bg-linear-to-br from-sunny via-pink to-grape opacity-80" aria-hidden />
-              <Sparkle className="absolute top-2 right-4 h-8 w-8 animate-sparkle" color="#FFC93C" />
-              <Sparkle className="absolute bottom-10 left-0 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#36C5F0" />
+              <Sparkle className="absolute top-2 right-4 h-8 w-8 animate-sparkle" color="#FAAF04" />
+              <Sparkle className="absolute bottom-10 left-0 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#01BDC6" />
               <Nainu mood="wave" className="relative" label="Illustration of Nainu waving — a stylised mascot, not a photo" />
               <p className="mt-2 text-center text-xs text-ink-soft">Nainu, as our brand mascot ✏️</p>
             </div>

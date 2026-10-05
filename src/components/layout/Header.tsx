@@ -77,10 +77,10 @@ export function Header() {
       <header
         className={cn(
           "sticky top-0 z-50 border-b transition-colors duration-300",
-          scrolled ? "border-line bg-cream/90 backdrop-blur-md" : "border-transparent bg-cream",
+          scrolled ? "border-line bg-white/95 shadow-sm backdrop-blur-md" : "border-transparent bg-white",
         )}
       >
-        <div className="container-page flex h-16 items-center gap-2 sm:h-20">
+        <div className="container-page flex h-[4.5rem] items-center gap-2 sm:h-24">
           <button
             ref={menuButtonRef}
             type="button"
@@ -93,7 +93,7 @@ export function Header() {
             <Menu className="h-6 w-6" aria-hidden />
           </button>
 
-          <Logo priority height={52} className="mr-auto lg:mr-0" />
+          <Logo priority className="mr-auto h-16 sm:h-[5.25rem] lg:mr-0" sizes="(min-width: 640px) 84px, 64px" />
 
           <nav aria-label="Main" className="mx-auto hidden lg:block">
             <ul className="flex items-center gap-1">
@@ -149,8 +149,8 @@ export function Header() {
             menuOpen ? "translate-x-0" : "-translate-x-full",
           )}
         >
-          <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <Logo height={44} />
+          <div className="flex items-center justify-between border-b border-line bg-white px-4 py-2">
+            <Logo className="h-16" sizes="64px" />
             <button type="button" className={iconBtn} aria-label="Close menu" onClick={() => setMenuOpen(false)}>
               <X className="h-6 w-6" aria-hidden />
             </button>

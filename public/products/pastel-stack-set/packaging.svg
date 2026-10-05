@@ -10,7 +10,7 @@
       <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
     </radialGradient>
     <filter id="shadow-pastel-stack-set-packaging" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3B1F4C" flood-opacity="0.18"/>
     </filter>
   </defs>
 <rect width="1200" height="1200" fill="url(#bg-pastel-stack-set-packaging)"/>
@@ -24,12 +24,12 @@
   </g>
 
   <g>
-    <rect x="40" y="40" width="209" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <rect x="40" y="40" width="209" height="56" rx="28" fill="#3B1F4C" opacity="0.85"/>
     <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Packaging</text>
   </g>
 
   <g>
     <rect x="870" y="1108" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
-    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">ILLUSTRATION</text>
+    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6E5A7E" letter-spacing="1">ILLUSTRATION</text>
   </g>
 </svg>

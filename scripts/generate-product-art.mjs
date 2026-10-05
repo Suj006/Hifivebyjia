@@ -14,10 +14,10 @@ const OUT = join(process.cwd(), "public", "products");
 const S = 1200;
 
 const BG = {
-  pink: ["#FFE3F0", "#FFD0E6"],
-  sunny: ["#FFF4D1", "#FFE6A3"],
-  sky: ["#DDF4FF", "#C2EBFF"],
-  grape: ["#EEE9FF", "#DCD3FF"],
+  pink: ["#FFE1EE", "#FFD0E6"],
+  sunny: ["#FFF3D6", "#FFE6A3"],
+  sky: ["#DBF6F7", "#C2EBFF"],
+  grape: ["#F1E7FB", "#DCD3FF"],
   mint: ["#DDF8EF", "#C3F0E1"],
   peach: ["#FFE9DC", "#FFD6BF"],
   cream: ["#FFF8EE", "#FBEAD4"],
@@ -44,7 +44,7 @@ const defs = (bg, id) => `
       <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
     </radialGradient>
     <filter id="shadow-${id}" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3B1F4C" flood-opacity="0.18"/>
     </filter>
   </defs>`;
 
@@ -102,12 +102,12 @@ function braceletRing(id, opts) {
 const label = (text) => `
   <g>
     <rect x="${S - 330}" y="${S - 92}" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
-    <text x="${S - 185}" y="${S - 55}" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">${text}</text>
+    <text x="${S - 185}" y="${S - 55}" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6E5A7E" letter-spacing="1">${text}</text>
   </g>`;
 
 const kindTag = (text) => `
   <g>
-    <rect x="40" y="40" width="${text.length * 17 + 56}" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <rect x="40" y="40" width="${text.length * 17 + 56}" height="56" rx="28" fill="#3B1F4C" opacity="0.85"/>
     <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">${text}</text>
   </g>`;
 
@@ -144,10 +144,10 @@ function ruler(id) {
   let ticks = "";
   for (let i = 0; i <= 20; i++) {
     const x = 200 + i * 40;
-    ticks += `<line x1="${x}" y1="930" x2="${x}" y2="${i % 5 === 0 ? 990 : 965}" stroke="#6B5E7B" stroke-width="4"/>`;
-    if (i % 5 === 0) ticks += `<text x="${x}" y="1030" text-anchor="middle" font-family="Arial" font-size="26" fill="#6B5E7B">${i / 2}</text>`;
+    ticks += `<line x1="${x}" y1="930" x2="${x}" y2="${i % 5 === 0 ? 990 : 965}" stroke="#6E5A7E" stroke-width="4"/>`;
+    if (i % 5 === 0) ticks += `<text x="${x}" y="1030" text-anchor="middle" font-family="Arial" font-size="26" fill="#6E5A7E">${i / 2}</text>`;
   }
-  return `<g filter="url(#shadow-${id})"><rect x="170" y="910" width="860" height="140" rx="20" fill="#FFF7D6"/>${ticks}<text x="1010" y="950" text-anchor="end" font-family="Arial" font-size="22" fill="#6B5E7B">cm</text></g>`;
+  return `<g filter="url(#shadow-${id})"><rect x="170" y="910" width="860" height="140" rx="20" fill="#FFF7D6"/>${ticks}<text x="1010" y="950" text-anchor="end" font-family="Arial" font-size="22" fill="#6E5A7E">cm</text></g>`;
 }
 
 function wrist(id, skin = "#F2C7A5") {
@@ -198,14 +198,14 @@ function scrunchies(id, colors) {
 /* -------------------------------------------------------------- */
 
 const PAL = {
-  candy: ["#FF4F9A", "#FFC93C", "#36C5F0", "#7B5CFF", "#2ED3A2", "#FF8A3D"],
-  bun: ["#FF8FC0", "#FFB3D4", "#FF4F9A", "#FFFFFF"],
-  ocean: ["#36C5F0", "#7FDBFF", "#2ED3A2", "#FFFFFF", "#7B5CFF"],
-  special: ["#7B5CFF", "#FFC93C", "#FF4F9A", "#FFFFFF", "#B9A7FF"],
+  candy: ["#ED0C68", "#FAAF04", "#01BDC6", "#7721C2", "#2ED3A2", "#FF8A3D"],
+  bun: ["#FF8FC0", "#FFB3D4", "#ED0C68", "#FFFFFF"],
+  ocean: ["#01BDC6", "#7FDBFF", "#2ED3A2", "#FFFFFF", "#7721C2"],
+  special: ["#7721C2", "#FAAF04", "#ED0C68", "#FFFFFF", "#B9A7FF"],
   pearl: ["#FFFDF7", "#F6EBDD", "#FFFFFF", "#E9D7BD"],
   pastel: ["#FFB3D4", "#B9E9FF", "#FFE6A3", "#C9F4E4", "#DCD3FF"],
-  sunset: ["#FF8A3D", "#FF4F9A", "#FFC93C", "#FFFFFF"],
-  rainbow: ["#FF4F4F", "#FF8A3D", "#FFC93C", "#2ED3A2", "#36C5F0", "#7B5CFF"],
+  sunset: ["#FF8A3D", "#ED0C68", "#FAAF04", "#FFFFFF"],
+  rainbow: ["#FF4F4F", "#FF8A3D", "#FAAF04", "#2ED3A2", "#01BDC6", "#7721C2"],
   glow: ["#C8FF6A", "#7FFFD4", "#FFF06A", "#FF9AE0"],
 };
 
@@ -249,7 +249,7 @@ function scene(p, kind) {
     return wrap(id, bg, body, kind === "front" ? "" : KINDS.find((k) => k[0] === kind)[1]);
   }
   if (p.type === "scrunchie") {
-    body = conf + (kind === "packaging" ? pouch(id, ["#FFFFFF", p.palette[1], "#FF4F9A"]) : scrunchies(id, p.palette));
+    body = conf + (kind === "packaging" ? pouch(id, ["#FFFFFF", p.palette[1], "#ED0C68"]) : scrunchies(id, p.palette));
     return wrap(id, bg, body, kind === "front" ? "" : KINDS.find((k) => k[0] === kind)[1]);
   }
 
@@ -300,7 +300,7 @@ function scene(p, kind) {
           : braceletRing(id, { cx: 600, cy: 680, ringR: 150, beadR: 24, tilt: 0.32, colors: p.palette, sizes: p.sizes }).replace("<g ", `<g transform="rotate(92 600 680)" `));
       break;
     case "packaging":
-      body = conf + pouch(id, ["#FFFFFF", p.palette[1] ?? "#FFE3F0", p.palette[0]]);
+      body = conf + pouch(id, ["#FFFFFF", p.palette[1] ?? "#FFE1EE", p.palette[0]]);
       break;
     case "size-reference":
       body =
@@ -309,7 +309,7 @@ function scene(p, kind) {
           ? `<g transform="translate(270 110) scale(0.55)">${main()}</g>`
           : `<g transform="translate(120 20) scale(0.8)">${main()}</g>`) +
         ruler(id) +
-        `<text x="600" y="130" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#6B5E7B">Approximate size – for reference only</text>`;
+        `<text x="600" y="130" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#6E5A7E">Approximate size – for reference only</text>`;
       break;
   }
   return wrap(id, bg, body, kind === "front" ? "" : KINDS.find((k) => k[0] === kind)[1]);

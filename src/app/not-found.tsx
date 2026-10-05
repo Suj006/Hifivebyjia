@@ -14,8 +14,8 @@ export default function NotFound() {
   return (
     <div className="container-page flex flex-col items-center py-16 text-center sm:py-24">
       <div className="relative w-56 sm:w-64">
-        <Sparkle className="absolute top-0 left-0 h-8 w-8 animate-sparkle" color="#FFC93C" />
-        <Sparkle className="absolute right-2 bottom-16 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#36C5F0" />
+        <Sparkle className="absolute top-0 left-0 h-8 w-8 animate-sparkle" color="#FAAF04" />
+        <Sparkle className="absolute right-2 bottom-16 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#01BDC6" />
         <span className="absolute -top-2 right-0 animate-float text-5xl" aria-hidden>
           🚀
         </span>

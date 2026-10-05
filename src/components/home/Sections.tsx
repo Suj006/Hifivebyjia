@@ -18,7 +18,7 @@ export function MeetNainuSection() {
   return (
     <section className="container-page" aria-labelledby="meet-nainu">
       <Reveal className="relative grid items-center gap-8 overflow-hidden rounded-[2.5rem] bg-linear-to-br from-sunny-soft via-pink-soft to-grape-soft p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:p-14">
-        <Sparkle className="absolute top-8 right-10 h-8 w-8 animate-sparkle" color="#FF4F9A" />
+        <Sparkle className="absolute top-8 right-10 h-8 w-8 animate-sparkle" color="#ED0C68" />
         <div className="relative mx-auto w-56 sm:w-72">
           <div className="absolute inset-4 rounded-full bg-white/70" aria-hidden />
           <Nainu mood="happy" label="Illustration of Nainu, the Hi 5 by Jia mascot" className="relative" />
@@ -192,7 +192,7 @@ export function FinalCta() {
   return (
     <section className="container-page" aria-labelledby="final-cta">
       <Reveal className="relative overflow-hidden rounded-[2.5rem] bg-linear-to-r from-pink-deep via-grape-deep to-sky-deep px-6 py-14 text-center text-white sm:px-12 sm:py-20">
-        <Sparkle className="absolute top-8 left-10 h-8 w-8 animate-sparkle" color="#FFC93C" />
+        <Sparkle className="absolute top-8 left-10 h-8 w-8 animate-sparkle" color="#FAAF04" />
         <Sparkle className="absolute right-12 bottom-10 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#FFFFFF" />
         <BeadString className="mx-auto w-48 opacity-90" />
         <h2 id="final-cta" className="mt-6 font-display text-4xl font-bold sm:text-6xl">

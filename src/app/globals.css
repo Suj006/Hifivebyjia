@@ -3,32 +3,32 @@
 /*
  * Hi 5 by Jia design tokens.
  * Bright, playful brand colours + a deep plum "ink" for text.
- * When the official logo is added, tune these hues to match it — every
- * component reads from these tokens.
+ * Hues are sampled from the official logo (pink #ED0C68, teal #01BDC6,
+ * yellow #FAAF04, purple #7721C2). Every component reads from these tokens.
  */
 @theme {
   --color-cream: #fffbf6;
   --color-paper: #ffffff;
   --color-line: #f0e4ef;
 
-  --color-ink: #2a1e3b;
-  --color-ink-soft: #6b5e7b;
+  --color-ink: #3b1f4c;
+  --color-ink-soft: #6e5a7e;
 
-  --color-pink: #ff4f9a;
-  --color-pink-deep: #d6246e;
-  --color-pink-soft: #ffe3f0;
+  --color-pink: #ed0c68;
+  --color-pink-deep: #d10a5c;
+  --color-pink-soft: #ffe1ee;
 
-  --color-sunny: #ffc93c;
-  --color-sunny-deep: #9a6a00;
-  --color-sunny-soft: #fff4d1;
+  --color-sunny: #faaf04;
+  --color-sunny-deep: #8a5a00;
+  --color-sunny-soft: #fff3d6;
 
-  --color-sky: #36c5f0;
-  --color-sky-deep: #0a78a8;
-  --color-sky-soft: #ddf4ff;
+  --color-sky: #01bdc6;
+  --color-sky-deep: #00788a;
+  --color-sky-soft: #dbf6f7;
 
-  --color-grape: #7b5cff;
-  --color-grape-deep: #5b3fe0;
-  --color-grape-soft: #eee9ff;
+  --color-grape: #7721c2;
+  --color-grape-deep: #6219a6;
+  --color-grape-soft: #f1e7fb;
 
   --color-mint: #2ed3a2;
   --color-mint-deep: #0f7c5c;
@@ -43,9 +43,9 @@
 
   --radius-blob: 2rem;
 
-  --shadow-soft: 0 10px 30px -12px rgb(42 30 59 / 0.18);
-  --shadow-pop: 0 18px 40px -16px rgb(214 36 110 / 0.35);
-  --shadow-card: 0 1px 2px rgb(42 30 59 / 0.04), 0 12px 32px -18px rgb(42 30 59 / 0.22);
+  --shadow-soft: 0 10px 30px -12px rgb(59 31 76 / 0.18);
+  --shadow-pop: 0 18px 40px -16px rgb(209 10 92 / 0.35);
+  --shadow-card: 0 1px 2px rgb(59 31 76 / 0.04), 0 12px 32px -18px rgb(59 31 76 / 0.22);
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-float-slow: float 11s ease-in-out infinite;
@@ -137,7 +137,7 @@
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 font-display text-base font-semibold transition duration-200 select-none active:scale-[0.97] disabled:opacity-50 disabled:active:scale-100;
   }
   .btn-primary {
-    @apply bg-pink-deep text-white shadow-pop hover:-translate-y-0.5 hover:bg-[#c11d61];
+    @apply bg-pink-deep text-white shadow-pop hover:-translate-y-0.5 hover:bg-[#b8084f];
   }
   .btn-secondary {
     @apply border-2 border-ink/10 bg-white text-ink hover:-translate-y-0.5 hover:border-pink hover:text-pink-deep;

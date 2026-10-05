@@ -34,8 +34,8 @@ export default function CreatorCollaborationsPage() {
               <p className="mt-6 max-w-2xl text-lg text-white/80">{creatorCollab.intro}</p>
             </div>
             <div className="relative mx-auto w-56 sm:w-72">
-              <Sparkle className="absolute top-0 left-0 h-8 w-8 animate-sparkle" color="#FFC93C" />
-              <Sparkle className="absolute right-0 bottom-12 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#FF4F9A" />
+              <Sparkle className="absolute top-0 left-0 h-8 w-8 animate-sparkle" color="#FAAF04" />
+              <Sparkle className="absolute right-0 bottom-12 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#ED0C68" />
               <div className="absolute inset-6 rounded-full bg-white/10" aria-hidden />
               <Nainu mood="celebrate" className="relative" label="Nainu celebrating creator collaborations" />
             </div>

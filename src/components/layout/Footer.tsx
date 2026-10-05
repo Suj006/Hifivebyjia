@@ -15,8 +15,8 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-2 bg-linear-to-r from-pink via-sunny to-sky" aria-hidden />
       <div className="container-page grid gap-12 py-16 lg:grid-cols-[1.3fr_2fr]">
         <div>
-          <div className="inline-block rounded-3xl bg-white px-5 py-3">
-            <Logo height={56} />
+          <div className="inline-block rounded-[2rem] bg-white p-2 shadow-soft">
+            <Logo className="h-32 sm:h-36" sizes="144px" />
           </div>
           <p className="mt-5 max-w-sm font-display text-xl text-white/90">{siteConfig.footerTagline}</p>
           <BeadString className="mt-6 w-56" />

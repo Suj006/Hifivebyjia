@@ -31,7 +31,7 @@ export function Blob({ className, color = "currentColor" }: { className?: string
 }
 
 export function BeadString({ className }: { className?: string }) {
-  const colors = ["#FF4F9A", "#FFC93C", "#36C5F0", "#7B5CFF", "#2ED3A2", "#FF8A3D"];
+  const colors = ["#ED0C68", "#FAAF04", "#01BDC6", "#7721C2", "#2ED3A2", "#FF8A3D"];
   return (
     <svg viewBox="0 0 260 30" className={cn("pointer-events-none", className)} aria-hidden="true">
       <path d="M4 15 Q130 30 256 15" stroke="#E9DDF0" strokeWidth="2" fill="none" />

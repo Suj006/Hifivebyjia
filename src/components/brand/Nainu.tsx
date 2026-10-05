@@ -22,8 +22,8 @@ const SKIN = "#F2C29D";
 const SKIN_SHADE = "#E3A981";
 const HAIR = "#3B2340";
 const HAIR_LIGHT = "#5A3760";
-const SHIRT = "#FF4F9A";
-const SHIRT_SHADE = "#E0307C";
+const SHIRT = "#ED0C68";
+const SHIRT_SHADE = "#C70A58";
 
 function HandShape({ x, y, rotate = 0, open = true }: { x: number; y: number; rotate?: number; open?: boolean }) {
   return (
@@ -43,7 +43,7 @@ function HandShape({ x, y, rotate = 0, open = true }: { x: number; y: number; ro
 }
 
 function Bracelet({ x, y, rotate = 0 }: { x: number; y: number; rotate?: number }) {
-  const colors = ["#FFC93C", "#36C5F0", "#7B5CFF", "#2ED3A2", "#FFFFFF"];
+  const colors = ["#FAAF04", "#01BDC6", "#7721C2", "#2ED3A2", "#FFFFFF"];
   return (
     <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
       {colors.map((c, i) => (
@@ -78,7 +78,7 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
       </defs>
 
       {/* ground shadow */}
-      <ellipse cx="120" cy="272" rx="70" ry="7" fill="#2A1E3B" opacity="0.08" />
+      <ellipse cx="120" cy="272" rx="70" ry="7" fill="#3B1F4C" opacity="0.08" />
 
       {/* hair back */}
       <path d="M58 118 C52 70 88 44 120 44 C152 44 188 70 182 118 C186 150 178 176 168 190 L72 190 C62 176 54 150 58 118Z" fill={HAIR} />
@@ -88,8 +88,8 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
       <circle cx="170" cy="58" r="24" fill={HAIR} />
       <circle cx="64" cy="52" r="8" fill={HAIR_LIGHT} opacity="0.6" />
       <circle cx="164" cy="52" r="8" fill={HAIR_LIGHT} opacity="0.6" />
-      <path d="M84 74 q8 -8 16 -4" stroke="#FFC93C" strokeWidth="6" strokeLinecap="round" fill="none" />
-      <path d="M156 74 q-8 -8 -16 -4" stroke="#36C5F0" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M84 74 q8 -8 16 -4" stroke="#FAAF04" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M156 74 q-8 -8 -16 -4" stroke="#01BDC6" strokeWidth="6" strokeLinecap="round" fill="none" />
 
       {/* body */}
       <path d="M78 196 C78 184 96 178 120 178 C144 178 162 184 162 196 L170 262 C170 268 166 272 160 272 L80 272 C74 272 70 268 70 262Z" fill={`url(#shirt-${uid})`} />
@@ -97,8 +97,8 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
       <path d="M104 182 q16 12 32 0" stroke="#FFFFFF" strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.8" />
       {/* "5" star badge on shirt */}
       <g transform="translate(120 226)">
-        <path d="M0 -15 L4.4 -5 L15 -4.6 L6.8 2.4 L9.4 13 L0 7 L-9.4 13 L-6.8 2.4 L-15 -4.6 L-4.4 -5Z" fill="#FFC93C" />
-        <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#2A1E3B" fontFamily="system-ui, sans-serif">5</text>
+        <path d="M0 -15 L4.4 -5 L15 -4.6 L6.8 2.4 L9.4 13 L0 7 L-9.4 13 L-6.8 2.4 L-15 -4.6 L-4.4 -5Z" fill="#FAAF04" />
+        <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#3B1F4C" fontFamily="system-ui, sans-serif">5</text>
       </g>
 
       {/* left arm (viewer's left) */}
@@ -156,8 +156,8 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
         <>
           <path d="M92 104 q8 -6 16 0" stroke={HAIR} strokeWidth="3.5" strokeLinecap="round" fill="none" />
           <path d="M132 104 q8 -6 16 0" stroke={HAIR} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-          <circle cx="100" cy="120" r="7" fill="#2A1E3B" />
-          <circle cx="140" cy="120" r="7" fill="#2A1E3B" />
+          <circle cx="100" cy="120" r="7" fill="#3B1F4C" />
+          <circle cx="140" cy="120" r="7" fill="#3B1F4C" />
           <circle cx="102.5" cy="117.5" r="2.4" fill="#fff" />
           <circle cx="142.5" cy="117.5" r="2.4" fill="#fff" />
           <ellipse cx="120" cy="146" rx="6" ry="7" fill="#8A2A4F" />
@@ -165,15 +165,15 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
         </>
       ) : mood === "celebrate" ? (
         <>
-          <path d="M92 122 q8 -10 16 0" stroke="#2A1E3B" strokeWidth="4" strokeLinecap="round" fill="none" />
-          <path d="M132 122 q8 -10 16 0" stroke="#2A1E3B" strokeWidth="4" strokeLinecap="round" fill="none" />
+          <path d="M92 122 q8 -10 16 0" stroke="#3B1F4C" strokeWidth="4" strokeLinecap="round" fill="none" />
+          <path d="M132 122 q8 -10 16 0" stroke="#3B1F4C" strokeWidth="4" strokeLinecap="round" fill="none" />
           <path d="M104 138 q16 22 32 0 z" fill="#8A2A4F" />
           <path d="M110 144 q10 8 20 0" fill="#FF8FB8" />
         </>
       ) : (
         <>
-          <ellipse cx="100" cy="122" rx="7" ry="8.5" fill="#2A1E3B" />
-          <ellipse cx="140" cy="122" rx="7" ry="8.5" fill="#2A1E3B" />
+          <ellipse cx="100" cy="122" rx="7" ry="8.5" fill="#3B1F4C" />
+          <ellipse cx="140" cy="122" rx="7" ry="8.5" fill="#3B1F4C" />
           <circle cx={mood === "thinking" ? 102 : 102.5} cy={mood === "thinking" ? 117 : 118.5} r="2.6" fill="#fff" />
           <circle cx={mood === "thinking" ? 142 : 142.5} cy={mood === "thinking" ? 117 : 118.5} r="2.6" fill="#fff" />
           <path d="M92 108 q8 -5 15 -1" stroke={HAIR} strokeWidth="3" strokeLinecap="round" fill="none" opacity={mood === "thinking" ? 1 : 0} />
@@ -188,17 +188,17 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
       {/* extras */}
       {mood === "thinking" && (
         <g className={animated ? "animate-float" : undefined}>
-          <circle cx="196" cy="70" r="20" fill="#FFFFFF" stroke="#EEE9FF" strokeWidth="3" />
-          <circle cx="178" cy="96" r="5" fill="#FFFFFF" stroke="#EEE9FF" strokeWidth="2" />
-          <text x="196" y="78" textAnchor="middle" fontSize="24" fontWeight="800" fill="#7B5CFF" fontFamily="system-ui, sans-serif">?</text>
+          <circle cx="196" cy="70" r="20" fill="#FFFFFF" stroke="#F1E7FB" strokeWidth="3" />
+          <circle cx="178" cy="96" r="5" fill="#FFFFFF" stroke="#F1E7FB" strokeWidth="2" />
+          <text x="196" y="78" textAnchor="middle" fontSize="24" fontWeight="800" fill="#7721C2" fontFamily="system-ui, sans-serif">?</text>
         </g>
       )}
       {mood === "celebrate" && (
         <g>
           {[
-            [28, 90, "#FFC93C"],
-            [214, 84, "#36C5F0"],
-            [40, 30, "#7B5CFF"],
+            [28, 90, "#FAAF04"],
+            [214, 84, "#01BDC6"],
+            [40, 30, "#7721C2"],
             [206, 24, "#2ED3A2"],
           ].map(([x, y, c], i) => (
             <path
