@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img">
+
+  <defs>
+    <linearGradient id="bg-name-keychain-packaging" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EEE9FF"/><stop offset="1" stop-color="#DCD3FF"/>
+    </linearGradient>
+    <radialGradient id="shine-name-keychain-packaging" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
+      <stop offset="0.35" stop-color="#fff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+    </radialGradient>
+    <filter id="shadow-name-keychain-packaging" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect width="1200" height="1200" fill="url(#bg-name-keychain-packaging)"/>
+<circle cx="132.73271201178432" cy="400.7429827004671" r="12.857213655486703" fill="#FF4F9A" opacity="0.45"/><rect x="823.2729390263557" y="672.1144122071564" width="12.481412312015891" height="4.992564924806357" rx="2.4962824624031783" fill="#B9A7FF" opacity="0.4" transform="rotate(22.957533351145685 823.2729390263557 672.1144122071564)"/><circle cx="1004.6236725524068" cy="1101.836862321943" r="15.47165257204324" fill="#FFFFFF" opacity="0.45"/><path d="M169.61791841313243 1140.1134269144386 L172.26234633978456 1146.2837587432937 L178.43267816863954 1148.9281866699457 L172.26234633978456 1151.5726145965978 L169.61791841313243 1157.7429464254528 L166.9734904864803 1151.5726145965978 L160.80315865762532 1148.9281866699457 L166.9734904864803 1146.2837587432937Z" fill="#FFC93C" opacity="0.5"/><circle cx="1094.1580474376678" cy="507.1927514858544" r="15.087628955952823" fill="#FF4F9A" opacity="0.45"/><rect x="1086.2802215851843" y="69.11564636975527" width="34.02860341966152" height="13.61144136786461" rx="6.805720683932305" fill="#B9A7FF" opacity="0.4" transform="rotate(168.33852072246373 1086.2802215851843 69.11564636975527)"/><rect x="391.3186269812286" y="1120.857496932149" width="27.22351910546422" height="10.889407642185688" rx="5.444703821092844" fill="#FFC93C" opacity="0.4" transform="rotate(162.47374422848225 391.3186269812286 1120.857496932149)"/><path d="M744.027663487941 114.98147607967257 L748.4878703992814 125.38862553946674 L758.8950198590755 129.8488324508071 L748.4878703992814 134.30903936214744 L744.027663487941 144.7161888219416 L739.5674565766006 134.30903936214744 L729.1603071168065 129.8488324508071 L739.5674565766006 125.38862553946674Z" fill="#7B5CFF" opacity="0.5"/><path d="M497.55482096225023 705.0754971122369 L502.5252989231609 716.6732790210284 L514.1230808319524 721.6437569819391 L502.5252989231609 726.6142349428497 L497.55482096225023 738.2120168516412 L492.58434300133956 726.6142349428497 L480.9865610925481 721.6437569819391 L492.58434300133956 716.6732790210284Z" fill="#FFC93C" opacity="0.5"/><rect x="314.6011951379478" y="1037.6185599714518" width="32.8976712115109" height="13.15906848460436" rx="6.57953424230218" fill="#FFC93C" opacity="0.4" transform="rotate(178.05673822760582 314.6011951379478 1037.6185599714518)"/><rect x="231.27027126029134" y="231.55110385268927" width="27.091936223208904" height="10.836774489283563" rx="5.418387244641782" fill="#FFFFFF" opacity="0.4" transform="rotate(37.79934595339 231.27027126029134 231.55110385268927)"/><rect x="525.4353440366685" y="949.3142031133175" width="35.86890932545066" height="14.347563730180264" rx="7.173781865090132" fill="#B9A7FF" opacity="0.4" transform="rotate(24.54875959083438 525.4353440366685 949.3142031133175)"/><circle cx="577.0011247135699" cy="1080.3954223170877" r="8.896985426545143" fill="#FFC93C" opacity="0.45"/><circle cx="935.1293480023742" cy="61.265219282358885" r="7.368691527284682" fill="#FF4F9A" opacity="0.45"/><rect x="586.3095841370523" y="843.8172943890095" width="27.666097339242697" height="11.066438935697079" rx="5.533219467848539" fill="#FFFFFF" opacity="0.4" transform="rotate(42.267510797828436 586.3095841370523 843.8172943890095)"/><circle cx="206.01993659511209" cy="418.24254635721445" r="15.371091485023499" fill="#FFC93C" opacity="0.45"/><rect x="869.1419145092368" y="728.5300548188388" width="21.47378327138722" height="8.589513308554888" rx="4.294756654277444" fill="#FFC93C" opacity="0.4" transform="rotate(67.1539486432448 869.1419145092368 728.5300548188388)"/><circle cx="59.05088111758232" cy="1151.1738111265004" r="17.385567563585937" fill="#FFC93C" opacity="0.45"/><g filter="url(#shadow-name-keychain-packaging)">
+    <path d="M360 470 Q600 400 840 470 L880 900 Q600 960 320 900 Z" fill="#FFFFFF"/>
+    <path d="M360 470 Q600 400 840 470 L850 540 Q600 480 350 540 Z" fill="#FFC93C" opacity="0.8"/>
+    <path d="M420 455 Q460 330 520 420" fill="none" stroke="#7B5CFF" stroke-width="14" stroke-linecap="round"/>
+    <path d="M780 455 Q740 330 680 420" fill="none" stroke="#7B5CFF" stroke-width="14" stroke-linecap="round"/>
+    <rect x="500" y="640" width="200" height="120" rx="24" fill="#FFFFFF"/>
+    <text x="600" y="718" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="54" font-weight="700" fill="#7B5CFF">Hi 5</text>
+  </g>
+
+  <g>
+    <rect x="40" y="40" width="209" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Packaging</text>
+  </g>
+
+  <g>
+    <rect x="870" y="1108" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
+    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">ILLUSTRATION</text>
+  </g>
+</svg>

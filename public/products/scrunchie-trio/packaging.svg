@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img">
+
+  <defs>
+    <linearGradient id="bg-scrunchie-trio-packaging" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE9DC"/><stop offset="1" stop-color="#FFD6BF"/>
+    </linearGradient>
+    <radialGradient id="shine-scrunchie-trio-packaging" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
+      <stop offset="0.35" stop-color="#fff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+    </radialGradient>
+    <filter id="shadow-scrunchie-trio-packaging" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect width="1200" height="1200" fill="url(#bg-scrunchie-trio-packaging)"/>
+<rect x="1151.5385577455163" y="201.11292293295264" width="19.859167719259858" height="7.943667087703943" rx="3.9718335438519716" fill="#DCD3FF" opacity="0.4" transform="rotate(4.673936669714749 1151.5385577455163 201.11292293295264)"/><rect x="979.5159470289946" y="1065.0100045837462" width="20.840378863736987" height="8.336151545494795" rx="4.168075772747398" fill="#FFB3D4" opacity="0.4" transform="rotate(5.398943047039211 979.5159470289946 1065.0100045837462)"/><rect x="254.45072036236525" y="1068.592733424157" width="25.18945470638573" height="10.075781882554294" rx="5.037890941277147" fill="#C9F4E4" opacity="0.4" transform="rotate(13.223676891066134 254.45072036236525 1068.592733424157)"/><rect x="421.79557979106903" y="770.7332965917885" width="30.4244170691818" height="12.16976682767272" rx="6.08488341383636" fill="#C9F4E4" opacity="0.4" transform="rotate(8.427931345067918 421.79557979106903 770.7332965917885)"/><circle cx="432.7625619247556" cy="1186.6693711839616" r="17.989517231471837" fill="#B9E9FF" opacity="0.45"/><rect x="229.97029898688197" y="1195.2027071267366" width="19.29688962176442" height="7.718755848705769" rx="3.8593779243528843" fill="#DCD3FF" opacity="0.4" transform="rotate(0.4044979065656662 229.97029898688197 1195.2027071267366)"/><circle cx="929.1344088502228" cy="535.1729845628142" r="10.543853860348463" fill="#DCD3FF" opacity="0.45"/><path d="M728.1864853575826 882.908146074973 L731.1604607968591 889.8474220999517 L738.0997368218377 892.8213975392282 L731.1604607968591 895.7953729785047 L728.1864853575826 902.7346490034834 L725.2125099183061 895.7953729785047 L718.2732338933274 892.8213975392282 L725.2125099183061 889.8474220999517Z" fill="#FFE6A3" opacity="0.5"/><path d="M986.3501342944801 731.8525988962501 L988.9647806888446 737.9534404831007 L995.0656222756952 740.5680868774652 L988.9647806888446 743.1827332718298 L986.3501342944801 749.2835748586804 L983.7354879001156 743.1827332718298 L977.634646313265 740.5680868774652 L983.7354879001156 737.9534404831007Z" fill="#B9E9FF" opacity="0.5"/><rect x="1111.5822494029999" y="726.9690957851708" width="22.4685203935951" height="8.98740815743804" rx="4.49370407871902" fill="#FFB3D4" opacity="0.4" transform="rotate(1.5369944041594863 1111.5822494029999 726.9690957851708)"/><rect x="454.01879120618105" y="711.7140359245241" width="15.075130680575967" height="6.030052272230387" rx="3.0150261361151935" fill="#C9F4E4" opacity="0.4" transform="rotate(170.65525826532394 454.01879120618105 711.7140359245241)"/><rect x="41.708822920918465" y="861.7540092207491" width="17.77949625067413" height="7.111798500269652" rx="3.555899250134826" fill="#DCD3FF" opacity="0.4" transform="rotate(0.8199908165261149 41.708822920918465 861.7540092207491)"/><path d="M1184.7074216231704 993.8182160435244 L1187.8396193350666 1001.1266773712821 L1195.1480806628242 1004.2588750831783 L1187.8396193350666 1007.3910727950745 L1184.7074216231704 1014.6995341228321 L1181.5752239112742 1007.3910727950745 L1174.2667625835165 1004.2588750831783 L1181.5752239112742 1001.1266773712821Z" fill="#DCD3FF" opacity="0.5"/><circle cx="342.63317501172423" cy="168.9179576933384" r="6.820766089484096" fill="#FFB3D4" opacity="0.45"/><circle cx="269.7125617414713" cy="785.1142899133265" r="16.47099371161312" fill="#FFE6A3" opacity="0.45"/><rect x="1063.2780608721077" y="797.5547125563025" width="20.523977391421795" height="8.209590956568718" rx="4.104795478284359" fill="#C9F4E4" opacity="0.4" transform="rotate(153.66347978822887 1063.2780608721077 797.5547125563025)"/><rect x="1107.9115784727037" y="3.438844531774521" width="27.681291069835424" height="11.07251642793417" rx="5.536258213967085" fill="#B9E9FF" opacity="0.4" transform="rotate(170.8539487235248 1107.9115784727037 3.438844531774521)"/><circle cx="476.6084016300738" cy="883.0048659816384" r="12.883117094635963" fill="#DCD3FF" opacity="0.45"/><g filter="url(#shadow-scrunchie-trio-packaging)">
+    <path d="M360 470 Q600 400 840 470 L880 900 Q600 960 320 900 Z" fill="#FFFFFF"/>
+    <path d="M360 470 Q600 400 840 470 L850 540 Q600 480 350 540 Z" fill="#B9E9FF" opacity="0.8"/>
+    <path d="M420 455 Q460 330 520 420" fill="none" stroke="#FF4F9A" stroke-width="14" stroke-linecap="round"/>
+    <path d="M780 455 Q740 330 680 420" fill="none" stroke="#FF4F9A" stroke-width="14" stroke-linecap="round"/>
+    <rect x="500" y="640" width="200" height="120" rx="24" fill="#FFFFFF"/>
+    <text x="600" y="718" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="54" font-weight="700" fill="#FF4F9A">Hi 5</text>
+  </g>
+
+  <g>
+    <rect x="40" y="40" width="209" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Packaging</text>
+  </g>
+
+  <g>
+    <rect x="870" y="1108" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
+    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">ILLUSTRATION</text>
+  </g>
+</svg>

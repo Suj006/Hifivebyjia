@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img">
+
+  <defs>
+    <linearGradient id="bg-name-keychain-close-up" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EEE9FF"/><stop offset="1" stop-color="#DCD3FF"/>
+    </linearGradient>
+    <radialGradient id="shine-name-keychain-close-up" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
+      <stop offset="0.35" stop-color="#fff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+    </radialGradient>
+    <filter id="shadow-name-keychain-close-up" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect width="1200" height="1200" fill="url(#bg-name-keychain-close-up)"/>
+<circle cx="478.41686122119427" cy="309.2057758010924" r="13.974079898558557" fill="#B9A7FF" opacity="0.45"/><circle cx="107.06898914650083" cy="92.44064670056105" r="7.99427080526948" fill="#7B5CFF" opacity="0.45"/><rect x="64.17465750128031" y="205.05888601765037" width="21.356099361553788" height="8.542439744621516" rx="4.271219872310758" fill="#FFC93C" opacity="0.4" transform="rotate(141.87602557707578 64.17465750128031 205.05888601765037)"/><path d="M93.10611449182034 121.67140271980315 L98.15651307301596 133.45566607592627 L109.94077642913908 138.5060646571219 L98.15651307301596 143.55646323831752 L93.10611449182034 155.34072659444064 L88.05571591062471 143.55646323831752 L76.2714525545016 138.5060646571219 L88.05571591062471 133.45566607592627Z" fill="#FF4F9A" opacity="0.5"/><rect x="1003.8793821819127" y="611.907915584743" width="21.915870644152164" height="8.766348257660866" rx="4.383174128830433" fill="#FFC93C" opacity="0.4" transform="rotate(2.5959336664527655 1003.8793821819127 611.907915584743)"/><path d="M926.5225826762617 669.3098388556391 L931.2928625771776 680.4404919577762 L942.4235156793147 685.2107718586922 L931.2928625771776 689.9810517596081 L926.5225826762617 701.1117048617452 L921.7523027753457 689.9810517596081 L910.6216496732086 685.2107718586922 L921.7523027753457 680.4404919577762Z" fill="#B9A7FF" opacity="0.5"/><circle cx="56.69511370360851" cy="317.41906637325883" r="17.82686152216047" fill="#FF4F9A" opacity="0.45"/><path d="M160.67083524540067 493.82240195944905 L164.11964004524052 501.86961315907536 L172.16685124486685 505.31841795891523 L164.11964004524052 508.7672227587551 L160.67083524540067 516.8144339583814 L157.22203044556082 508.7672227587551 L149.1748192459345 505.31841795891523 L157.22203044556082 501.86961315907536Z" fill="#FF4F9A" opacity="0.5"/><rect x="693.0123114958405" y="601.0741814039648" width="25.338786536827683" height="10.135514614731074" rx="5.067757307365537" fill="#FFFFFF" opacity="0.4" transform="rotate(171.7165356175974 693.0123114958405 601.0741814039648)"/><circle cx="59.6074428409338" cy="1162.0763727463782" r="6.525568789802492" fill="#FFC93C" opacity="0.45"/><circle cx="174.33665888383985" cy="410.4101909324527" r="15.448295552283525" fill="#B9A7FF" opacity="0.45"/><circle cx="639.8707995191216" cy="825.8511333726346" r="13.36173225659877" fill="#FFFFFF" opacity="0.45"/><path d="M283.49702758714557 159.10308907739818 L287.70391913037747 168.9191693449393 L297.5199993979186 173.1260608881712 L287.70391913037747 177.3329524314031 L283.49702758714557 187.1490326989442 L279.29013604391366 177.3329524314031 L269.47405577637255 173.1260608881712 L279.29013604391366 168.9191693449393Z" fill="#7B5CFF" opacity="0.5"/><circle cx="88.89621868729591" cy="661.6920386441052" r="16.29712951462716" fill="#7B5CFF" opacity="0.45"/><rect x="1070.2898279763758" y="859.1939443722367" width="15.623179256916046" height="6.249271702766419" rx="3.1246358513832093" fill="#FFFFFF" opacity="0.4" transform="rotate(67.23381833173335 1070.2898279763758 859.1939443722367)"/><circle cx="759.6724237315357" cy="24.3933018296957" r="11.320508049800992" fill="#FFC93C" opacity="0.45"/><path d="M675.3900669515133 721.3954701432958 L679.3136364304461 730.5504655941389 L688.4686318812892 734.4740350730717 L679.3136364304461 738.3976045520045 L675.3900669515133 747.5526000028476 L671.4664974725805 738.3976045520045 L662.3115020217374 734.4740350730717 L671.4664974725805 730.5504655941389Z" fill="#FFC93C" opacity="0.5"/><circle cx="1085.8943522907794" cy="980.0283769145608" r="6.205145493149757" fill="#FFFFFF" opacity="0.45"/><g filter="url(#shadow-name-keychain-close-up)"><rect x="120" y="440" width="240" height="240" rx="42" fill="#FFFFFF" stroke="#E9DDF5" stroke-width="7.199999999999999"/>
+      <rect x="120" y="440" width="240" height="240" rx="42" fill="url(#shine-name-keychain-close-up)" opacity="0.5"/>
+      <text x="240" y="605.6" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="700" font-size="132" fill="#7B5CFF">N</text><rect x="370" y="520" width="240" height="240" rx="42" fill="#FFFFFF" stroke="#E9DDF5" stroke-width="7.199999999999999"/>
+      <rect x="370" y="520" width="240" height="240" rx="42" fill="url(#shine-name-keychain-close-up)" opacity="0.5"/>
+      <text x="490" y="685.6" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="700" font-size="132" fill="#FFC93C">A</text><rect x="620" y="440" width="240" height="240" rx="42" fill="#FFFFFF" stroke="#E9DDF5" stroke-width="7.199999999999999"/>
+      <rect x="620" y="440" width="240" height="240" rx="42" fill="url(#shine-name-keychain-close-up)" opacity="0.5"/>
+      <text x="740" y="605.6" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="700" font-size="132" fill="#FF4F9A">I</text><rect x="870" y="520" width="240" height="240" rx="42" fill="#FFFFFF" stroke="#E9DDF5" stroke-width="7.199999999999999"/>
+      <rect x="870" y="520" width="240" height="240" rx="42" fill="url(#shine-name-keychain-close-up)" opacity="0.5"/>
+      <text x="990" y="685.6" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-weight="700" font-size="132" fill="#FFFFFF">N</text></g>
+
+  <g>
+    <rect x="40" y="40" width="192" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Close-up</text>
+  </g>
+
+  <g>
+    <rect x="870" y="1108" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
+    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">ILLUSTRATION</text>
+  </g>
+</svg>

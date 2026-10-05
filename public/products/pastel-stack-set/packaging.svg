@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img">
+
+  <defs>
+    <linearGradient id="bg-pastel-stack-set-packaging" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF8EE"/><stop offset="1" stop-color="#FBEAD4"/>
+    </linearGradient>
+    <radialGradient id="shine-pastel-stack-set-packaging" cx="0.35" cy="0.3" r="0.7">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.85"/>
+      <stop offset="0.35" stop-color="#fff" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.12"/>
+    </radialGradient>
+    <filter id="shadow-pastel-stack-set-packaging" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#2A1E3B" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+<rect width="1200" height="1200" fill="url(#bg-pastel-stack-set-packaging)"/>
+<circle cx="1090.4966404661536" cy="803.7534917704761" r="16.160245933569968" fill="#FFB3D4" opacity="0.45"/><rect x="1041.1104834638536" y="1110.7692383229733" width="12.616713490337133" height="5.046685396134854" rx="2.523342698067427" fill="#DCD3FF" opacity="0.4" transform="rotate(83.89322413131595 1041.1104834638536 1110.7692383229733)"/><circle cx="209.26275858655572" cy="576.5178540721536" r="12.724022045731544" fill="#FFE6A3" opacity="0.45"/><path d="M411.1937200650573 895.2984511731192 L415.6560417766683 905.7105351668782 L426.0681257704273 910.1728568784893 L415.6560417766683 914.6351785901003 L411.1937200650573 925.0472625838593 L406.73139835344625 914.6351785901003 L396.31931435968727 910.1728568784893 L406.73139835344625 905.7105351668782Z" fill="#C9F4E4" opacity="0.5"/><rect x="3.411420341581106" y="277.725637704134" width="33.712332900613546" height="13.484933160245419" rx="6.742466580122709" fill="#C9F4E4" opacity="0.4" transform="rotate(72.29564538225532 3.411420341581106 277.725637704134)"/><path d="M210.81422427669168 619.8380078449845 L213.84654021039606 626.9134116902948 L220.92194405570626 629.9457276239991 L213.84654021039606 632.9780435577035 L210.81422427669168 640.0534474030137 L207.7819083429873 632.9780435577035 L200.7065044976771 629.9457276239991 L207.7819083429873 626.9134116902948Z" fill="#FFE6A3" opacity="0.5"/><circle cx="987.6180907711387" cy="485.82239700481296" r="12.178381570614874" fill="#FFE6A3" opacity="0.45"/><circle cx="518.4676176868379" cy="994.6117512881756" r="10.731482220813632" fill="#B9E9FF" opacity="0.45"/><circle cx="431.79143853485584" cy="1127.5087983347476" r="12.864523856900632" fill="#B9E9FF" opacity="0.45"/><rect x="124.10444738343358" y="38.56247719377279" width="27.9745517000556" height="11.18982068002224" rx="5.59491034001112" fill="#FFE6A3" opacity="0.4" transform="rotate(59.87635555677116 124.10444738343358 38.56247719377279)"/><rect x="621.502464171499" y="1072.456631809473" width="12.271806355565786" height="4.9087225422263145" rx="2.4543612711131573" fill="#B9E9FF" opacity="0.4" transform="rotate(63.30370729789138 621.502464171499 1072.456631809473)"/><circle cx="572.5483850575984" cy="583.9195663109422" r="17.257619708776474" fill="#FFE6A3" opacity="0.45"/><circle cx="29.303978942334652" cy="1088.830556999892" r="10.197139003314078" fill="#C9F4E4" opacity="0.45"/><circle cx="270.7862234674394" cy="1121.8987070024014" r="12.610872192308307" fill="#C9F4E4" opacity="0.45"/><circle cx="509.3053210526705" cy="922.8067637421191" r="8.573023139499128" fill="#B9E9FF" opacity="0.45"/><circle cx="75.56519927456975" cy="46.604070626199245" r="17.79927895590663" fill="#DCD3FF" opacity="0.45"/><path d="M940.8056588843465 813.4553094422445 L943.5598763256334 819.8818168052472 L949.9863836886361 822.6360342465341 L943.5598763256334 825.390251687821 L940.8056588843465 831.8167590508237 L938.0514414430596 825.390251687821 L931.6249340800568 822.6360342465341 L938.0514414430596 819.8818168052472Z" fill="#FFB3D4" opacity="0.5"/><circle cx="303.6100300960243" cy="1168.6271522194147" r="10.793877745047212" fill="#DCD3FF" opacity="0.45"/><g filter="url(#shadow-pastel-stack-set-packaging)">
+    <path d="M360 470 Q600 400 840 470 L880 900 Q600 960 320 900 Z" fill="#FFFFFF"/>
+    <path d="M360 470 Q600 400 840 470 L850 540 Q600 480 350 540 Z" fill="#B9E9FF" opacity="0.8"/>
+    <path d="M420 455 Q460 330 520 420" fill="none" stroke="#FFB3D4" stroke-width="14" stroke-linecap="round"/>
+    <path d="M780 455 Q740 330 680 420" fill="none" stroke="#FFB3D4" stroke-width="14" stroke-linecap="round"/>
+    <rect x="500" y="640" width="200" height="120" rx="24" fill="#FFFFFF"/>
+    <text x="600" y="718" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="54" font-weight="700" fill="#FFB3D4">Hi 5</text>
+  </g>
+
+  <g>
+    <rect x="40" y="40" width="209" height="56" rx="28" fill="#2A1E3B" opacity="0.85"/>
+    <text x="68" y="77" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Packaging</text>
+  </g>
+
+  <g>
+    <rect x="870" y="1108" width="290" height="56" rx="28" fill="#FFFFFF" opacity="0.85"/>
+    <text x="1015" y="1145" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6B5E7B" letter-spacing="1">ILLUSTRATION</text>
+  </g>
+</svg>
