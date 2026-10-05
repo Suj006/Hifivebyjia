@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Heart } from "@/components/brand/Heart";
 import { ArrowRight } from "lucide-react";
 import { Blob, Sparkle, Squiggle } from "@/components/brand/Decor";
 import { Logo } from "@/components/brand/Logo";
@@ -23,7 +24,7 @@ export function Hero() {
       <div className="container-page relative grid items-center gap-10 pt-6 sm:pt-10 lg:grid-cols-[1.1fr_1fr] lg:gap-6 lg:pt-14">
         <div className="relative z-10 text-center lg:text-left">
           <span className="eyebrow animate-fade-up">
-            <Sparkle className="h-3.5 w-3.5" color="#FAAF04" /> {heroCopy.eyebrow}
+            <Heart className="h-3.5 w-3.5" /> {heroCopy.eyebrow}
           </span>
           <h1 id="hero-title" className="mt-5 animate-fade-up text-[2.6rem] leading-[1.02] font-bold [animation-delay:80ms] sm:text-6xl lg:text-7xl">
             Made with <span className="relative inline-block text-pink-deep">
@@ -55,7 +56,7 @@ export function Hero() {
           <div className="absolute inset-[12%] rounded-full bg-linear-to-br from-pink via-grape to-sky opacity-90" aria-hidden />
           <div className="absolute inset-[14%] rounded-full bg-cream/30 backdrop-blur-[1px]" aria-hidden />
           <div className="absolute inset-x-[18%] bottom-[4%] animate-bounce-in">
-            <Nainu mood="wave" label="Nainu, the Hi 5 by Jia mascot, waving hello" />
+            <Nainu mood="wave" label="Nainu, the Hi Five by Jia mascot, waving hello" />
           </div>
           {FLOATING.map((f) => {
             const p = getProductBySlug(f.slug);
@@ -80,9 +81,9 @@ export function Hero() {
           </div>
           <Sparkle className="absolute top-[46%] left-[4%] h-7 w-7 animate-sparkle" color="#FAAF04" />
           <Sparkle className="absolute top-[18%] right-[30%] h-5 w-5 animate-sparkle [animation-delay:1s]" color="#01BDC6" />
-          <Sparkle className="absolute right-[2%] bottom-[40%] h-6 w-6 animate-sparkle [animation-delay:1.6s]" color="#ED0C68" />
+          <span className="absolute right-[3%] bottom-[42%] animate-float [animation-delay:-1.5s]" aria-hidden><Heart className="h-7 w-7" face /></span>
           <div className="absolute bottom-[14%] left-[0%] animate-float rounded-2xl bg-white px-4 py-2 font-display font-bold shadow-soft [animation-delay:-3s]">
-            Hi 5! <span aria-hidden>✋</span>
+            Hi Five! <span aria-hidden>✋</span>
           </div>
         </div>
       </div>
@@ -99,7 +100,11 @@ export function Marquee() {
         {[...row, ...row].map((w, i) => (
           <span key={i} className="flex items-center gap-8">
             {w}
-            <span className={["text-pink", "text-sunny", "text-sky", "text-mint"][i % 4]}>✦</span>
+            {i % 2 ? (
+              <Heart className="h-5 w-5" color={["#ED0C68", "#FAAF04", "#01BDC6", "#7721C2"][i % 4]} />
+            ) : (
+              <span className={["text-pink", "text-sunny", "text-sky", "text-grape"][i % 4]}>✦</span>
+            )}
           </span>
         ))}
       </div>

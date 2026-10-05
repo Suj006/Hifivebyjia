@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Shop All Handmade Bracelets, Keychains & Gifts",
   description:
-    "Shop handmade bead bracelets, personalised alphabet bracelets, keychains and gift sets from Hi 5 by Jia. Search, filter and find your next favourite.",
+    "Shop handmade bead bracelets, personalised alphabet bracelets, keychains and gift sets from Hi Five by Jia. Search, filter and find your next favourite.",
   path: "/shop",
 });
 

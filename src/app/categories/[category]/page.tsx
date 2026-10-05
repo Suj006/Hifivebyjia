@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   if (!collection) return {};
   return pageMetadata({
     title: `${collection.name} Collection`,
-    description: `${collection.tagline} ${collection.description} Shop the ${collection.name} collection from Hi 5 by Jia.`,
+    description: `${collection.tagline} ${collection.description} Shop the ${collection.name} collection from Hi Five by Jia.`,
     path: `/categories/${collection.slug}`,
   });
 }

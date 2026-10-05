@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Your Cart",
-  description: "Review your Hi 5 by Jia picks, apply a coupon and check out.",
+  description: "Review your Hi Five by Jia picks, apply a coupon and check out.",
   path: "/cart",
   noIndex: true,
 });

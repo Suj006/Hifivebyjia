@@ -7,7 +7,7 @@ import { faqJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "FAQ",
-  description: "Answers to common questions about ordering, sizing, personalisation, shipping and returns at Hi 5 by Jia.",
+  description: "Answers to common questions about ordering, sizing, personalisation, shipping and returns at Hi Five by Jia.",
   path: "/faq",
 });
 

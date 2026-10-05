@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
-  description: "How Hi 5 by Jia collects, uses and protects your information, including children’s privacy.",
+  description: "How Hi Five by Jia collects, uses and protects your information, including children’s privacy.",
   path: "/privacy",
 });
 

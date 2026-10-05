@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Creator Collaborations",
   description:
-    "Made by young creators, shared with the world. Hi 5 by Jia is exploring collaborations with young makers — with parent/guardian involvement every step of the way.",
+    "Made by young creators, shared with the world. Hi Five by Jia is exploring collaborations with young makers — with parent/guardian involvement every step of the way.",
   path: "/creator-collaborations",
 });
 

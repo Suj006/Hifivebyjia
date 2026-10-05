@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Heart } from "@/components/brand/Heart";
 import { Mail } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { BeadString } from "@/components/brand/Decor";
@@ -33,7 +34,7 @@ export function Footer() {
             </li>
             {wa && (
               <li>
-                <a href={whatsappLink(`Hi ${siteConfig.name}! ✋`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-sunny">
+                <a href={whatsappLink(`Hello ${siteConfig.name}! ✋`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-sunny">
                   <WhatsAppIcon /> WhatsApp
                 </a>
               </li>
@@ -61,7 +62,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col gap-2 py-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {siteConfig.name}. All rights reserved.</p>
-          <p>Handmade in India with lots of colour ✋</p>
+          <p className="inline-flex items-center gap-1.5">Handmade with <Heart className="h-4 w-4" label="love" /> in India</p>
         </div>
       </div>
     </footer>

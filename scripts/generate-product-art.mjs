@@ -119,14 +119,14 @@ ${kind ? kindTag(kind) : ""}
 ${label("ILLUSTRATION")}
 </svg>`;
 
-function pouch(id, colors, text = "Hi 5") {
+function pouch(id, colors, text = "Hi Five") {
   return `<g filter="url(#shadow-${id})">
     <path d="M360 470 Q600 400 840 470 L880 900 Q600 960 320 900 Z" fill="${colors[0]}"/>
     <path d="M360 470 Q600 400 840 470 L850 540 Q600 480 350 540 Z" fill="${colors[1]}" opacity="0.8"/>
     <path d="M420 455 Q460 330 520 420" fill="none" stroke="${colors[2]}" stroke-width="14" stroke-linecap="round"/>
     <path d="M780 455 Q740 330 680 420" fill="none" stroke="${colors[2]}" stroke-width="14" stroke-linecap="round"/>
-    <rect x="500" y="640" width="200" height="120" rx="24" fill="#FFFFFF"/>
-    <text x="600" y="718" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="54" font-weight="700" fill="${colors[2]}">${text}</text>
+    <rect x="460" y="640" width="280" height="120" rx="24" fill="#FFFFFF"/>
+    <text x="600" y="716" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="50" font-weight="700" fill="${colors[2]}">${text}</text>
   </g>`;
 }
 
@@ -214,7 +214,7 @@ const products = [
   { slug: "bead-bracelet", type: "bracelet", palette: PAL.ocean, bg: "sky" },
   { slug: "special-bead-bracelet", type: "bracelet", palette: PAL.special, bg: "grape", sizes: [1, 0.75, 1, 1.25, 0.75] },
   { slug: "keychain", type: "keychain", palette: PAL.candy, bg: "sunny" },
-  { slug: "alphabet-bead-bracelet", type: "bracelet", palette: PAL.candy, bg: "mint", letters: "HI5" },
+  { slug: "alphabet-bead-bracelet", type: "bracelet", palette: PAL.candy, bg: "mint", letters: "HIFIVE" },
   { slug: "pearl-charm-bracelet", type: "bracelet", palette: PAL.pearl, bg: "peach", gold: true },
   { slug: "pastel-stack-set", type: "stack", palette: PAL.pastel, bg: "cream" },
   { slug: "best-friends-bracelet-duo", type: "duo", palette: PAL.sunset, bg: "pink" },

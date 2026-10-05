@@ -12,14 +12,14 @@
 const clean = (value: string | undefined, fallback = "") => (value && value.trim() ? value.trim() : fallback);
 
 export const siteConfig = {
-  name: "Hi 5 by Jia",
-  shortName: "Hi 5",
+  name: "Hi Five by Jia",
+  shortName: "Hi Five",
   url: clean(process.env.NEXT_PUBLIC_SITE_URL, "https://hifivebyjia.in").replace(/\/$/, ""),
   tagline: "Made with Creativity. Shared with a Smile.",
-  footerTagline: "Handmade accessories. Big ideas. One Hi 5 at a time.",
+  footerTagline: "Handmade accessories. Big ideas. One Hi Five at a time.",
   description:
-    "Discover handmade bracelets, personalised accessories, gifts and creative collections from Hi 5 by Jia. Made with creativity and shared with a smile.",
-  defaultTitle: "Hi 5 by Jia | Handmade Bracelets & Accessories",
+    "Discover handmade bracelets, personalised accessories, gifts and creative collections from Hi Five by Jia. Made with creativity and shared with a smile.",
+  defaultTitle: "Hi Five by Jia | Handmade Bracelets & Accessories",
   locale: "en_IN",
   language: "en-IN",
 
@@ -27,7 +27,9 @@ export const siteConfig = {
    * Official logo — `public/brand/logo.jpg`, used exactly as supplied
    * (no recolouring, cropping, redrawing or effects). Only scaled for display.
    */
-  logo: { src: "/brand/logo.jpg", width: 1254, height: 1254, alt: "Hi 5 by Jia logo" } as null | {
+  /** Same logo, only resized to 256px, for small uses (e.g. Nainu's T-shirt print). */
+  logoSmall: "/brand/logo-small.jpg",
+  logo: { src: "/brand/logo.jpg", width: 1254, height: 1254, alt: "Hi Five by Jia logo" } as null | {
     src: string;
     width: number;
     height: number;

@@ -1,4 +1,4 @@
--- Hi 5 by Jia — Phase 2 database schema (Supabase / PostgreSQL). DRAFT — not applied yet.
+-- Hi Five by Jia — Phase 2 database schema (Supabase / PostgreSQL). DRAFT — not applied yet.
 -- Mirrors src/types/models.ts. Enable Row Level Security on every table before going live.
 
 create extension if not exists "pgcrypto";

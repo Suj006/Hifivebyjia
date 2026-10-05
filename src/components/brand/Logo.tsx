@@ -13,7 +13,7 @@ interface LogoProps {
 }
 
 /**
- * Renders the official Hi 5 by Jia logo exactly as supplied: no recolouring,
+ * Renders the official Hi Five by Jia logo exactly as supplied: no recolouring,
  * cropping, filters or effects — it is only scaled. If `siteConfig.logo` is
  * cleared, a plain text wordmark is shown instead (never a redraw).
  */

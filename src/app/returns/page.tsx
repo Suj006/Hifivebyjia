@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Returns & Refunds",
-  description: "Hi 5 by Jia returns, refunds and cancellation policy for handmade and personalised products.",
+  description: "Hi Five by Jia returns, refunds and cancellation policy for handmade and personalised products.",
   path: "/returns",
 });
 

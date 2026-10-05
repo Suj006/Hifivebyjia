@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Heart } from "@/components/brand/Heart";
 import { Sparkle } from "@/components/brand/Decor";
 import { NotifyMeForm } from "@/components/forms/NotifyMeForm";
 import { ProductImage } from "@/components/product/ProductImage";
@@ -17,7 +18,7 @@ export function ComingSoonCard({ product }: { product: Product }) {
         />
         <span className="chip absolute top-3 left-3 bg-grape text-white shadow-sm">✨ Coming soon</span>
         <Sparkle className="absolute top-4 right-6 h-6 w-6 animate-sparkle" color="#FAAF04" />
-        <Sparkle className="absolute right-14 bottom-6 h-4 w-4 animate-sparkle [animation-delay:0.8s]" color="#ED0C68" />
+        <span className="absolute right-14 bottom-6 animate-float" aria-hidden><Heart className="h-5 w-5" /></span>
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display text-xl font-bold">

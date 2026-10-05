@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Coming Soon",
-  description: "Get a sneak peek at new Hi 5 by Jia products that are on the way — and get notified the moment they launch.",
+  description: "Get a sneak peek at new Hi Five by Jia products that are on the way — and get notified the moment they launch.",
   path: "/coming-soon",
 });
 

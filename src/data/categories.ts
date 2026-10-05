@@ -19,7 +19,7 @@ export const collections: Collection[] = [
     slug: "bracelets",
     name: "Bracelets",
     tagline: "Stack them, swap them, share them.",
-    description: "Every Hi 5 bracelet is strung by hand, one bead at a time.",
+    description: "Every Hi Five bracelet is strung by hand, one bead at a time.",
     emoji: "📿",
     theme: "pink",
     rule: { category: ["bracelets"] },
@@ -95,7 +95,7 @@ export const collections: Collection[] = [
   {
     slug: "gifts",
     name: "Gifts",
-    tagline: "Give someone a Hi 5.",
+    tagline: "Give someone a Hi Five.",
     description: "Thoughtful little gifts for friends, family and teachers.",
     emoji: "🎁",
     theme: "sky",

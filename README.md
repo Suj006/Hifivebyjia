@@ -1,6 +1,6 @@
-# Hi 5 by Jia — hifivebyjia.in
+# Hi Five by Jia — hifivebyjia.in
 
-The online shop for **Hi 5 by Jia**, a handmade accessories brand started by Jia (Nainu at home).
+The online shop for **Hi Five by Jia**, a handmade accessories brand started by Jia (Nainu at home).
 Built with **Next.js 16 (App Router) · TypeScript · Tailwind CSS v4**, deployed on **Vercel**.
 
 > Made with Creativity. Shared with a Smile. ✋

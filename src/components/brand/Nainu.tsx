@@ -1,8 +1,9 @@
 import { useId } from "react";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/format";
 
 /**
- * Nainu — the Hi 5 by Jia brand mascot.
+ * Nainu — the Hi Five by Jia brand mascot.
  *
  * A clearly stylised, fictional cartoon character (not a portrait). If a
  * reference image of the official character is supplied later, replace this
@@ -95,11 +96,9 @@ export function Nainu({ mood = "wave", className, label, animated = true }: Nain
       <path d="M78 196 C78 184 96 178 120 178 C144 178 162 184 162 196 L170 262 C170 268 166 272 160 272 L80 272 C74 272 70 268 70 262Z" fill={`url(#shirt-${uid})`} />
       <rect x="110" y="166" width="20" height="18" rx="6" fill={SKIN_SHADE} />
       <path d="M104 182 q16 12 32 0" stroke="#FFFFFF" strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.8" />
-      {/* "5" star badge on shirt */}
-      <g transform="translate(120 226)">
-        <path d="M0 -15 L4.4 -5 L15 -4.6 L6.8 2.4 L9.4 13 L0 7 L-9.4 13 L-6.8 2.4 L-15 -4.6 L-4.4 -5Z" fill="#FAAF04" />
-        <text x="0" y="5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#3B1F4C" fontFamily="system-ui, sans-serif">5</text>
-      </g>
+      {/* T-shirt print: the official logo, unaltered, on a white patch */}
+      <rect x="94" y="200" width="52" height="52" rx="12" fill="#FFFFFF" />
+      <image href={siteConfig.logoSmall} x="97" y="203" width="46" height="46" preserveAspectRatio="xMidYMid meet" />
 
       {/* left arm (viewer's left) */}
       {raisedLeft ? (

@@ -34,7 +34,7 @@ export const faqs: { title: string; items: FaqItem[] }[] = [
     items: [
       {
         q: "Are the products really handmade?",
-        a: "Yes. The Hi 5 by Jia collection is handmade, so tiny differences in colour or bead placement make each piece one of a kind.",
+        a: "Yes. The Hi Five by Jia collection is handmade, so tiny differences in colour or bead placement make each piece one of a kind.",
       },
       {
         q: "Which size should I choose?",
@@ -68,14 +68,14 @@ export const faqs: { title: string; items: FaqItem[] }[] = [
     ],
   },
   {
-    title: "About Hi 5 by Jia",
+    title: "About Hi Five by Jia",
     items: [
       {
-        q: "Who is behind Hi 5 by Jia?",
-        a: "Hi 5 by Jia was started by Jia (Nainu at home), a young creator who loves arts & crafts. Her family helps with orders, packing and shipping.",
+        q: "Who is behind Hi Five by Jia?",
+        a: "Hi Five by Jia was started by Jia (Nainu at home), a young creator who loves arts & crafts. Her family helps with orders, packing and shipping.",
       },
       {
-        q: "Can I collaborate with Hi 5 by Jia?",
+        q: "Can I collaborate with Hi Five by Jia?",
         a: `We are exploring collaborations with young creators. Please email ${contact.email}. For creators under 18, a parent or guardian must be involved.`,
       },
     ],
@@ -160,7 +160,7 @@ export const privacyPolicy: PolicySection[] = [
   {
     heading: "Children’s privacy",
     body: [
-      "Hi 5 by Jia is run by a young creator with her family. We do not publish personal details of any minor.",
+      "Hi Five by Jia is run by a young creator with her family. We do not publish personal details of any minor.",
       "Customers under 18 should place orders with the help of a parent or guardian.",
     ],
   },
@@ -174,7 +174,7 @@ export const termsOfService: PolicySection[] = [
   {
     heading: "About these terms",
     body: [
-      "By using hifivebyjia.in you agree to these terms. Hi 5 by Jia is a small handmade brand run by a young creator with her family.",
+      "By using hifivebyjia.in you agree to these terms. Hi Five by Jia is a small handmade brand run by a young creator with her family.",
     ],
   },
   {
@@ -196,7 +196,7 @@ export const termsOfService: PolicySection[] = [
     heading: "Reviews & content",
     body: [
       "Reviews are moderated and only published after approval. We may decline reviews that are abusive, off-topic or contain personal information.",
-      "All website content, including the Hi 5 by Jia logo and name, belongs to Hi 5 by Jia.",
+      "All website content, including the Hi Five by Jia logo and name, belongs to Hi Five by Jia.",
     ],
   },
   {

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { Heart, HeartLine } from "@/components/brand/Heart";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BeadString, Sparkle, Squiggle } from "@/components/brand/Decor";
+import { BeadString, Sparkle } from "@/components/brand/Decor";
 import { Nainu } from "@/components/brand/Nainu";
 import { Breadcrumbs } from "@/components/common/Breadcrumbs";
 import { Reveal } from "@/components/common/Reveal";
@@ -9,9 +10,9 @@ import { founder, journey, meetNainu, originStory, whatsNext } from "@/content/b
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About Nainu – The Story of Hi 5 by Jia",
+  title: "About Nainu – The Story of Hi Five by Jia",
   description:
-    "Meet Jia (Nainu at home), the young creator behind Hi 5 by Jia. Discover how a few handmade bracelets became a brand — and where it’s going next.",
+    "Meet Jia (Nainu at home), the young creator behind Hi Five by Jia. Discover how a few handmade bracelets became a brand — and where it’s going next.",
   path: "/about",
 });
 
@@ -35,7 +36,7 @@ export default function AboutPage() {
             <div>
               <span className="eyebrow">Hi, I’m the founder!</span>
               <h1 id="about-title" className="mt-4 font-display text-5xl font-bold sm:text-6xl">
-                {meetNainu.title} <span aria-hidden>💖</span>
+                {meetNainu.title} <Heart face className="ml-1 h-[0.9em] w-[0.9em] align-[-0.05em]" />
               </h1>
               <p className="mt-6 font-display text-2xl leading-snug font-medium">{meetNainu.greeting}</p>
               <div className="mt-4 space-y-4 text-lg text-ink-soft">
@@ -57,11 +58,11 @@ export default function AboutPage() {
       {/* How it started */}
       <section className="container-page" aria-labelledby="origin">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="eyebrow">How Hi 5 Started</span>
+          <span className="eyebrow">How Hi Five Started</span>
           <h2 id="origin" className="section-title mt-4">
             “{originStory.lead}”
           </h2>
-          <Squiggle className="mx-auto mt-4 h-4 w-40 text-sunny" color="currentColor" />
+          <HeartLine className="mx-auto mt-4 h-7 w-44" />
           <div className="mt-6 space-y-4 text-lg text-ink-soft">
             {originStory.paragraphs.map((p) => (
               <p key={p}>{p}</p>
@@ -123,7 +124,7 @@ export default function AboutPage() {
             <h2 id="next" className="section-title mt-4">
               This is just the beginning
             </h2>
-            <p className="section-lead">Hi 5 by Jia is starting small — and dreaming big. Here’s what’s on the horizon.</p>
+            <p className="section-lead">Hi Five by Jia is starting small — and dreaming big. Here’s what’s on the horizon.</p>
             <BeadString className="mt-6 w-56" />
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/shop" className="btn btn-primary">

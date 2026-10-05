@@ -19,8 +19,8 @@
     <path d="M360 470 Q600 400 840 470 L850 540 Q600 480 350 540 Z" fill="#FAAF04" opacity="0.8"/>
     <path d="M420 455 Q460 330 520 420" fill="none" stroke="#ED0C68" stroke-width="14" stroke-linecap="round"/>
     <path d="M780 455 Q740 330 680 420" fill="none" stroke="#ED0C68" stroke-width="14" stroke-linecap="round"/>
-    <rect x="500" y="640" width="200" height="120" rx="24" fill="#FFFFFF"/>
-    <text x="600" y="718" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="54" font-weight="700" fill="#ED0C68">Hi 5</text>
+    <rect x="460" y="640" width="280" height="120" rx="24" fill="#FFFFFF"/>
+    <text x="600" y="716" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="50" font-weight="700" fill="#ED0C68">Hi Five</text>
   </g>
 
   <g>

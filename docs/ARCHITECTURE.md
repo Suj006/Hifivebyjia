@@ -63,7 +63,7 @@ coupons, orders, customers, review moderation (approve / reject / delete / featu
 server (token in env, cached with revalidation) and render the latest posts in the same grid.
 
 ### Creator marketplace (long term)
-Hi 5 by Jia → creator profiles → creator products → **parent/guardian approval** → product approval →
+Hi Five by Jia → creator profiles → creator products → **parent/guardian approval** → product approval →
 customer orders. `Product.creatorId` and the `creator_*` tables are ready. Every creator under 18 requires
 verified guardian consent; creators' personal details are never published.
 

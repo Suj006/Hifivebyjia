@@ -11,7 +11,7 @@ import { whatsappLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description: "Get in touch with Hi 5 by Jia — questions, custom orders and collaboration ideas are all welcome.",
+  description: "Get in touch with Hi Five by Jia — questions, custom orders and collaboration ideas are all welcome.",
   path: "/contact",
 });
 
@@ -29,7 +29,7 @@ export default function ContactPage() {
       external: true,
     },
     ...(wa
-      ? [{ icon: WhatsAppIcon, label: "WhatsApp", value: "Chat with us", href: whatsappLink(`Hi ${siteConfig.name}! ✋`), bg: "bg-mint-soft", fg: "text-mint-deep", external: true }]
+      ? [{ icon: WhatsAppIcon, label: "WhatsApp", value: "Chat with us", href: whatsappLink(`Hello ${siteConfig.name}! ✋`), bg: "bg-mint-soft", fg: "text-mint-deep", external: true }]
       : []),
   ];
 

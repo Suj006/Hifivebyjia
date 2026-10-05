@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Heart } from "@/components/brand/Heart";
 import { ArrowRight } from "lucide-react";
 import { BeadString, Sparkle } from "@/components/brand/Decor";
 import { Nainu } from "@/components/brand/Nainu";
@@ -9,7 +10,7 @@ import { SectionHeading } from "@/components/common/SectionHeading";
 import { StarRating } from "@/components/common/StarRating";
 import { ProductImage } from "@/components/product/ProductImage";
 import { siteConfig } from "@/config/site";
-import { founder, meetNainu, microcopy, vision, whyHi5 } from "@/content/brand";
+import { founder, meetNainu, microcopy, vision, whyHiFive } from "@/content/brand";
 import { getProductById, getShopProducts } from "@/lib/catalog";
 import { formatDate } from "@/lib/format";
 import { getFeaturedReviews } from "@/lib/reviews";
@@ -21,12 +22,12 @@ export function MeetNainuSection() {
         <Sparkle className="absolute top-8 right-10 h-8 w-8 animate-sparkle" color="#ED0C68" />
         <div className="relative mx-auto w-56 sm:w-72">
           <div className="absolute inset-4 rounded-full bg-white/70" aria-hidden />
-          <Nainu mood="happy" label="Illustration of Nainu, the Hi 5 by Jia mascot" className="relative" />
+          <Nainu mood="happy" label="Illustration of Nainu, the Hi Five by Jia mascot" className="relative" />
         </div>
         <div>
           <span className="eyebrow">The founder</span>
           <h2 id="meet-nainu" className="section-title mt-4">
-            {meetNainu.title} <span aria-hidden>💖</span>
+            {meetNainu.title} <Heart face className="ml-1 h-[0.9em] w-[0.9em] align-[-0.05em]" />
           </h2>
           <p className="mt-5 font-display text-2xl leading-snug font-medium text-ink">“{meetNainu.greeting}”</p>
           <p className="mt-4 text-lg text-ink-soft">{meetNainu.paragraphs[0]}</p>
@@ -49,10 +50,10 @@ export function MeetNainuSection() {
 export function WhySection() {
   const colors = ["bg-pink-soft", "bg-sky-soft", "bg-sunny-soft", "bg-mint-soft"];
   return (
-    <section className="container-page" aria-labelledby="why-hi5">
-      <SectionHeading id="why-hi5" eyebrow="Why Hi 5 by Jia" title="Little details. Big smiles." align="center" />
+    <section className="container-page" aria-labelledby="why-hi-five">
+      <SectionHeading id="why-hi-five" eyebrow="Why Hi Five by Jia" title="Little details. Big smiles." align="center" />
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {whyHi5.map((item, i) => (
+        {whyHiFive.map((item, i) => (
           <Reveal as="li" key={item.title} className="card p-6 transition hover:-translate-y-1">
             <span className={`grid h-14 w-14 place-items-center rounded-2xl text-2xl ${colors[i % colors.length]}`} aria-hidden>
               {item.emoji}
@@ -110,7 +111,7 @@ export function ReviewsShowcase() {
   const reviews = getFeaturedReviews(6);
   return (
     <section className="container-page" aria-labelledby="customer-love">
-      <SectionHeading id="customer-love" eyebrow="Customer love" title={<>Loved by Our Customers <span aria-hidden>❤️</span></>} align="center" />
+      <SectionHeading id="customer-love" eyebrow="Customer love" title={<>Loved by Our Customers <Heart face className="ml-1 h-[0.9em] w-[0.9em] align-[-0.05em]" /></>} align="center" />
       {reviews.length ? (
         <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => {
@@ -138,7 +139,7 @@ export function ReviewsShowcase() {
           compact
           mood="celebrate"
           title={microcopy.noReviews}
-          text="Bought something from Hi 5 by Jia? Head to the product page and tell us how it went."
+          text="Bought something from Hi Five by Jia? Head to the product page and tell us how it went."
           action={{ label: "Shop & review", href: "/shop" }}
           className="mx-auto mt-10 max-w-2xl"
         />
@@ -193,10 +194,10 @@ export function FinalCta() {
     <section className="container-page" aria-labelledby="final-cta">
       <Reveal className="relative overflow-hidden rounded-[2.5rem] bg-linear-to-r from-pink-deep via-grape-deep to-sky-deep px-6 py-14 text-center text-white sm:px-12 sm:py-20">
         <Sparkle className="absolute top-8 left-10 h-8 w-8 animate-sparkle" color="#FAAF04" />
-        <Sparkle className="absolute right-12 bottom-10 h-6 w-6 animate-sparkle [animation-delay:1s]" color="#FFFFFF" />
+        <span className="absolute right-12 bottom-10 animate-float" aria-hidden><Heart className="h-8 w-8" color="#FFFFFF" /></span>
         <BeadString className="mx-auto w-48 opacity-90" />
         <h2 id="final-cta" className="mt-6 font-display text-4xl font-bold sm:text-6xl">
-          Ready for your Hi 5? <span aria-hidden>✋</span>
+          Ready for your Hi Five? <span aria-hidden>✋</span>
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-lg text-white/85">Find a favourite for yourself — or a little something to make someone smile.</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Checkout",
-  description: "Complete your Hi 5 by Jia order.",
+  description: "Complete your Hi Five by Jia order.",
   path: "/checkout",
   noIndex: true,
 });
@@ -17,7 +17,7 @@ export default function CheckoutPage() {
         ← Back to cart
       </Link>
       <h1 className="mt-3 font-display text-4xl font-bold sm:text-5xl">Checkout</h1>
-      <p className="mt-2 text-lg text-ink-soft">Almost there! Just a few details and your Hi 5 is on its way.</p>
+      <p className="mt-2 text-lg text-ink-soft">Almost there! Just a few details and your Hi Five is on its way.</p>
       <div className="mt-8">
         <CheckoutForm />
       </div>

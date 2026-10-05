@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Order Confirmation",
-  description: "Your Hi 5 by Jia order request.",
+  description: "Your Hi Five by Jia order request.",
   path: "/order-confirmation",
   noIndex: true,
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FloatingHearts } from "@/components/brand/Heart";
 import { useSearchParams } from "next/navigation";
 import { Mail } from "lucide-react";
 import { Nainu } from "@/components/brand/Nainu";
@@ -30,7 +31,8 @@ export function OrderConfirmation() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="card overflow-hidden text-center">
-        <div className="bg-linear-to-br from-mint-soft via-sunny-soft to-pink-soft px-6 pt-10 pb-6">
+        <div className="relative bg-linear-to-br from-mint-soft via-sunny-soft to-pink-soft px-6 pt-10 pb-6">
+          <FloatingHearts />
           <div className="mx-auto w-36 animate-bounce-in">
             <Nainu mood="celebrate" label="Nainu celebrating your order" />
           </div>

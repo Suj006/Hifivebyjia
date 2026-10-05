@@ -40,7 +40,7 @@ function customisationDetails(product: Product | undefined, values?: Record<stri
 }
 
 function compose(input: MessageInput, customer?: Partial<CustomerDetails>, reference?: string): string {
-  const lines: string[] = [`Hi ${siteConfig.name}! ✋`, "", "I’d like to place an order."];
+  const lines: string[] = [`Hello ${siteConfig.name}! ✋`, "", "I’d like to place an order."];
   if (reference) lines.push(`Order reference: ${reference}`);
   lines.push("");
 
@@ -111,5 +111,5 @@ export function buildOrderRequestMessage(order: OrderRequest): string {
 }
 
 export function buildProductEnquiry(product: Product): string {
-  return `Hi ${siteConfig.name}! ✋\n\nI have a question about the ${product.name}.\n${siteConfig.url}/products/${product.slug}`;
+  return `Hello ${siteConfig.name}! ✋\n\nI have a question about the ${product.name}.\n${siteConfig.url}/products/${product.slug}`;
 }

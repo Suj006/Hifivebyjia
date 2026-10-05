@@ -249,7 +249,7 @@ export function PurchasePanel({ product }: { product: Product }) {
         {[
           { icon: Hand, title: "Handmade", text: "Made with care, one bead at a time" },
           { icon: Truck, title: "Ships in India", text: `Free over ${formatPrice(siteConfig.shipping.freeShippingThreshold)}` },
-          { icon: Gift, title: "Gift-ready", text: "Packed in a Hi 5 pouch" },
+          { icon: Gift, title: "Gift-ready", text: "Packed in a Hi Five pouch" },
         ].map(({ icon: Icon, title, text }) => (
           <li key={title} className="flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm sm:flex-col sm:gap-2">
             <Icon className="h-5 w-5 shrink-0 text-pink-deep" aria-hidden />

@@ -22,7 +22,7 @@ export const footerNav: { title: string; links: NavLink[] }[] = [
     ],
   },
   {
-    title: "Hi 5 by Jia",
+    title: "Hi Five by Jia",
     links: [
       { label: "About Nainu", href: "/about" },
       { label: "Creator Collaborations", href: "/creator-collaborations" },

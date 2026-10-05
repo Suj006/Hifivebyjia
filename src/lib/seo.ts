@@ -8,7 +8,7 @@ interface PageMetaInput {
   path: string;
   image?: string;
   noIndex?: boolean;
-  /** Use the title as-is (no " | Hi 5 by Jia" suffix). */
+  /** Use the title as-is (no " | Hi Five by Jia" suffix). */
   absoluteTitle?: boolean;
 }
 

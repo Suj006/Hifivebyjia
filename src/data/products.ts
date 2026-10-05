@@ -19,7 +19,7 @@ const KIND_LABEL: Record<ProductImageKind, string> = {
   "close-up": "close-up of the beads",
   detail: "detail",
   lifestyle: "worn on the wrist",
-  packaging: "in its Hi 5 gift pouch",
+  packaging: "in its Hi Five gift pouch",
   "size-reference": "next to a ruler for size",
 };
 
@@ -55,7 +55,7 @@ export const products: Product[] = [
     slug: "bun-bracelet",
     shortDescription: "Soft, squishy-looking puff beads in sweet pinks.",
     description:
-      "Our Bun Bracelet mixes round puff beads with glossy pink and pearly-white beads for a bouncy, happy look. It is light, stretchy and easy to roll on — perfect on its own or stacked with your other Hi 5 favourites.",
+      "Our Bun Bracelet mixes round puff beads with glossy pink and pearly-white beads for a bouncy, happy look. It is light, stretchy and easy to roll on — perfect on its own or stacked with your other Hi Five favourites.",
     price: 50,
     images: gallery("bun-bracelet", "Bun Bracelet"),
     category: "bracelets",
@@ -98,7 +98,7 @@ export const products: Product[] = [
     id: "p-bead-bracelet",
     name: "Bead Bracelet",
     slug: "bead-bracelet",
-    shortDescription: "The classic Hi 5 bracelet in ocean-bright colours.",
+    shortDescription: "The classic Hi Five bracelet in ocean-bright colours.",
     description:
       "The bracelet that started it all. Glossy blue, aqua, mint and purple beads strung by hand into an easy everyday bracelet. Wear one, gift one, or match with your best friend.",
     price: 60,
@@ -278,7 +278,7 @@ export const products: Product[] = [
     slug: "pearl-charm-bracelet",
     shortDescription: "Soft faux-pearl beads with a tiny golden star charm.",
     description:
-      "A softer, more grown-up Hi 5: creamy faux-pearl and champagne beads finished with a little golden star. Lovely for work, weekends and gifting.",
+      "A softer, more grown-up Hi Five: creamy faux-pearl and champagne beads finished with a little golden star. Lovely for work, weekends and gifting.",
     price: 249,
     compareAtPrice: 299,
     images: gallery("pearl-charm-bracelet", "Pearl Charm Bracelet"),
@@ -309,7 +309,7 @@ export const products: Product[] = [
     slug: "pastel-stack-set",
     shortDescription: "Three dreamy pastel bracelets made to be stacked.",
     description:
-      "Three coordinating pastel bracelets designed to be worn together — or shared between friends. Comes in a Hi 5 gift pouch.",
+      "Three coordinating pastel bracelets designed to be worn together — or shared between friends. Comes in a Hi Five gift pouch.",
     price: 199,
     compareAtPrice: 240,
     images: gallery("pastel-stack-set", "Pastel Stack Set"),
@@ -452,7 +452,7 @@ export const products: Product[] = [
     slug: "scrunchie-trio",
     shortDescription: "Three soft pastel scrunchies for hair and wrists.",
     description:
-      "A brand-new category for Hi 5! Soft pastel scrunchies that look as good on your wrist as they do in your hair.",
+      "A brand-new category for Hi Five! Soft pastel scrunchies that look as good on your wrist as they do in your hair.",
     price: 120,
     images: gallery("scrunchie-trio", "Scrunchie Trio", PREVIEW_KINDS),
     category: "hair-accessories",
@@ -474,13 +474,13 @@ export const products: Product[] = [
   },
   {
     id: "p-mystery-gift-box",
-    name: "Hi 5 Mystery Gift Box",
+    name: "Hi Five Mystery Gift Box",
     slug: "mystery-gift-box",
-    shortDescription: "A surprise box of Hi 5 goodies, perfect for gifting.",
+    shortDescription: "A surprise box of Hi Five goodies, perfect for gifting.",
     description:
-      "What is inside? A handpicked surprise of Hi 5 favourites, beautifully packed and ready to gift.",
+      "What is inside? A handpicked surprise of Hi Five favourites, beautifully packed and ready to gift.",
     price: 299,
-    images: gallery("mystery-gift-box", "Hi 5 Mystery Gift Box", PREVIEW_KINDS),
+    images: gallery("mystery-gift-box", "Hi Five Mystery Gift Box", PREVIEW_KINDS),
     category: "gift-sets",
     collections: ["gifts"],
     audience: ["everyone"],

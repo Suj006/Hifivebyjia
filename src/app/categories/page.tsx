@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Collections",
-  description: "Browse Hi 5 by Jia collections: bracelets, alphabet beads, keychains, gifts and picks for kids, teens and adults.",
+  description: "Browse Hi Five by Jia collections: bracelets, alphabet beads, keychains, gifts and picks for kids, teens and adults.",
   path: "/categories",
 });
 
