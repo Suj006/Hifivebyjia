@@ -131,9 +131,7 @@ export function CouponForm({ discount, categories, collections, products }: Prop
 
   async function onDelete() {
     if (!discount || !confirm("Delete this coupon permanently?")) return;
-    await deleteDiscount(discount.id);
-    router.push("/admin/coupons");
-    router.refresh();
+    await deleteDiscount(discount.id); // redirects to the coupon list
   }
 
   async function onReset() {

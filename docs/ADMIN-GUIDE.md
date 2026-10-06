@@ -51,6 +51,26 @@ Red number badges in the menu show the same counts.
 
 ---
 
+## Categories
+
+The category master: what kind of product something is (Bracelets, Keychains, Anklets…).
+Categories are used in the shop filter, on product pages, and to limit coupons to certain products.
+
+- **Add category** – name, web address (fills itself in) and an optional short description, which is shown
+  on the shop page when customers filter by that category.
+- The list shows how many products each category has (on sale, coming soon, hidden…). Tap the count to see
+  those products. Use the ↑ ↓ arrows to change the order shown in the shop filter.
+- **Edit** – rename it or change its description. If you change the web address, its products, collection
+  rules and coupons move with it automatically.
+- **Delete** – if products still use the category, choose another category to move them to first.
+  A coupon that applies *only* to this category must be changed or deleted before the category can go.
+- A new category appears in the shop filter as soon as it has a product on show.
+
+Every product needs a category — pick it in **Where it appears** on the product form, or use
+**Add a product in this category** on the category page.
+
+---
+
 ## Coupons & offers
 
 **Coupons & offers → New coupon**
@@ -121,7 +141,7 @@ Edit the collections shown in “Shop by Collection”: name, emoji, tagline, co
 visibility (eye). **Add products automatically** includes products by category, audience or tag
 (e.g. every product tagged `gift` goes into *Gifts*). **Add collection** creates a new one with its own page.
 
-**Categories** (Bracelets, Keychains…) are edited below. A category can’t be removed while products use it.
+Product types (Bracelets, Keychains…) are managed separately under **Categories**.
 
 ---
 

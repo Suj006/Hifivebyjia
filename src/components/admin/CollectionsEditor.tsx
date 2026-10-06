@@ -7,7 +7,7 @@ import { FieldLabel, Panel } from "@/components/admin/ui";
 import { THEME_CLASSES } from "@/components/product/CollectionCard";
 import { AUDIENCE_LABELS } from "@/lib/catalog";
 import { cn } from "@/lib/format";
-import { saveCategories, saveCollections } from "@/server/actions/settings";
+import { saveCollections } from "@/server/actions/settings";
 import type { Audience, Category, Collection, CollectionTheme } from "@/types";
 
 const THEMES = Object.keys(THEME_CLASSES) as CollectionTheme[];
@@ -15,7 +15,6 @@ const AUDIENCES: Audience[] = ["kids", "teens", "adults", "women", "families", "
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
 
 type Row = Collection & { isNew?: boolean; key: string; tagsText: string };
-type CatRow = Category & { isNew?: boolean; key: string };
 
 let k = 0;
 const key = () => `k${++k}`;
@@ -23,8 +22,7 @@ const key = () => `k${++k}`;
 export function CollectionsEditor({ collections, categories }: { collections: Collection[]; categories: Category[] }) {
   const router = useRouter();
   const [rows, setRows] = useState<Row[]>(() => collections.map((c) => ({ ...c, key: key(), tagsText: (c.rule?.tags ?? []).join(", ") })));
-  const [cats, setCats] = useState<CatRow[]>(() => categories.map((c) => ({ ...c, key: key() })));
-  const [msg, setMsg] = useState<{ ok: boolean; text: string; where: "col" | "cat" } | null>(null);
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [saving, setSaving] = useState(false);
 
   const update = (i: number, patch: Partial<Row>) => setRows((r) => r.map((x, j) => (j === i ? { ...x, ...patch } : x)));
@@ -47,20 +45,9 @@ export function CollectionsEditor({ collections, categories }: { collections: Co
       rows.map((r) => ({ ...r, rule: { ...r.rule, tags: r.tagsText.split(",").map((t) => t.trim()).filter(Boolean) } })),
     );
     setSaving(false);
-    setMsg({ ok: res.ok, text: res.ok ? "Collections saved! The website is updated." : res.error ?? "Couldn’t save.", where: "col" });
+    setMsg({ ok: res.ok, text: res.ok ? "Collections saved! The website is updated." : res.error ?? "Couldn’t save." });
     if (res.ok) {
       setRows((r) => r.map((x) => ({ ...x, isNew: false })));
-      router.refresh();
-    }
-  }
-
-  async function saveCats() {
-    setSaving(true);
-    const res = await saveCategories(cats);
-    setSaving(false);
-    setMsg({ ok: res.ok, text: res.ok ? "Categories saved!" : res.error ?? "Couldn’t save.", where: "cat" });
-    if (res.ok) {
-      setCats((c) => c.map((x) => ({ ...x, isNew: false })));
       router.refresh();
     }
   }
@@ -181,7 +168,7 @@ export function CollectionsEditor({ collections, categories }: { collections: Co
           <button type="button" onClick={saveCols} disabled={saving} className="btn btn-primary btn-sm">
             <Save className="h-4 w-4" aria-hidden /> Save collections
           </button>
-          {msg?.where === "col" && (
+          {msg && (
             <p role="status" className={cn("text-sm font-bold", msg.ok ? "text-mint-deep" : "text-pink-deep")}>
               {msg.text}
             </p>
@@ -189,51 +176,6 @@ export function CollectionsEditor({ collections, categories }: { collections: Co
         </div>
       </Panel>
 
-      <Panel title="Categories" description="What kind of product it is (used for filters and breadcrumbs).">
-        <ul className="space-y-2">
-          {cats.map((c, i) => (
-            <li key={c.key} className="grid gap-2 rounded-2xl border border-line p-3 sm:grid-cols-[1fr_1fr_2fr_auto] sm:items-center">
-              <input
-                aria-label="Category name"
-                value={c.name}
-                onChange={(e) => setCats((all) => all.map((x, j) => (j === i ? { ...x, name: e.target.value, ...(x.isNew ? { slug: slugify(e.target.value) } : {}) } : x)))}
-                className="input py-2"
-                placeholder="Name"
-              />
-              <input
-                aria-label="Web address"
-                value={c.slug}
-                readOnly={!c.isNew}
-                onChange={(e) => setCats((all) => all.map((x, j) => (j === i ? { ...x, slug: slugify(e.target.value) } : x)))}
-                className={cn("input py-2", !c.isNew && "bg-[#FBF8FC] text-ink-soft")}
-              />
-              <input
-                aria-label="Description"
-                value={c.description}
-                onChange={(e) => setCats((all) => all.map((x, j) => (j === i ? { ...x, description: e.target.value } : x)))}
-                className="input py-2"
-                placeholder="Description"
-              />
-              <button type="button" onClick={() => setCats((all) => all.filter((_, j) => j !== i))} className="justify-self-end rounded-full p-2 text-pink-deep hover:bg-pink-soft" aria-label={`Remove ${c.name}`}>
-                <Trash2 className="h-4 w-4" aria-hidden />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <button type="button" onClick={() => setCats((c) => [...c, { key: key(), isNew: true, slug: "", name: "", description: "" }])} className="btn btn-secondary btn-sm">
-            <Plus className="h-4 w-4" aria-hidden /> Add category
-          </button>
-          <button type="button" onClick={saveCats} disabled={saving} className="btn btn-primary btn-sm">
-            <Save className="h-4 w-4" aria-hidden /> Save categories
-          </button>
-          {msg?.where === "cat" && (
-            <p role="status" className={cn("text-sm font-bold", msg.ok ? "text-mint-deep" : "text-pink-deep")}>
-              {msg.text}
-            </p>
-          )}
-        </div>
-      </Panel>
     </div>
   );
 }

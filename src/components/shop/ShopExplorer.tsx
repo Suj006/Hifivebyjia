@@ -87,6 +87,12 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
     return fixed ? all.filter((p) => productInCollection(p, fixed)) : all;
   }, [shop.products, shop.collections, fixedCollection]);
   const bounds = useMemo(() => priceBounds(pool), [pool]);
+  // Only offer categories that have something to show (plus any already selected).
+  const filterCategories = useMemo(
+    () => shop.categories.filter((c) => pool.some((p) => p.category === c.slug) || filters.category?.includes(c.slug)),
+    [shop.categories, pool, filters.category],
+  );
+  const soleCategory = filters.category?.length === 1 ? shop.categories.find((c) => c.slug === filters.category?.[0]) : undefined;
   const results = useMemo(() => filterProducts(pool, filters, ctx), [pool, filters, ctx]);
 
   // Debounced search-as-you-type.
@@ -145,7 +151,7 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
   const filterPanel = (
     <div className="space-y-7">
       <FilterGroup title="Category">
-        {shop.categories.map((c) => (
+        {filterCategories.map((c) => (
           <Check key={c.slug} label={c.name} checked={filters.category?.includes(c.slug) ?? false} onChange={() => toggle("category", c.slug)} />
         ))}
       </FilterGroup>
@@ -253,6 +259,7 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
             </button>
           ))}
         </div>
+        {soleCategory?.description && <p className="mt-2 text-ink-soft">{soleCategory.description}</p>}
 
         <div className="mt-6">
           {results.length > 0 ? (

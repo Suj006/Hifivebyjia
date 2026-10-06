@@ -4,7 +4,7 @@ import { requireAdmin } from "@/server/auth";
 import { db } from "@/server/db";
 import { refreshStore } from "@/server/store";
 import { sanitizeText } from "@/lib/validation";
-import type { Audience, Category, Collection, CollectionTheme, StoreSettings } from "@/types";
+import type { Audience, Collection, CollectionTheme, StoreSettings } from "@/types";
 
 export interface SettingsResult {
   ok: boolean;
@@ -75,28 +75,5 @@ export async function saveCollections(input: Collection[]): Promise<SettingsResu
     });
   }
   await put("collections", collections);
-  return { ok: true };
-}
-
-export async function saveCategories(input: Category[]): Promise<SettingsResult> {
-  await requireAdmin();
-  if (!Array.isArray(input) || !input.length || input.length > 40) return { ok: false, error: "Keep at least one category." };
-  const seen = new Set<string>();
-  const categories: Category[] = [];
-  for (const c of input) {
-    const name = sanitizeText(c.name, 40);
-    const slug = sanitizeText(c.slug, 50).toLowerCase();
-    if (!name || !SLUG_RE.test(slug)) return { ok: false, error: `Check the category “${name || slug || "?"}” (name and web address are required).` };
-    if (seen.has(slug)) return { ok: false, error: `Two categories use “${slug}”.` };
-    seen.add(slug);
-    categories.push({ slug, name, description: sanitizeText(c.description, 200) });
-  }
-  const sql = await db();
-  const used = await sql`select distinct data->>'category' as category from products`;
-  const missing = used.map((r) => String(r.category)).filter((c) => c && !seen.has(c));
-  if (missing.length) {
-    return { ok: false, error: `Can’t remove “${missing.join(", ")}” — products still use it. Move those products to another category first.` };
-  }
-  await put("categories", categories);
   return { ok: true };
 }

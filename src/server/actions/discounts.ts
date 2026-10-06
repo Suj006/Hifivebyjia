@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { getAllCategories, getAllCollections } from "@/server/admin-data";
 import { requireAdmin } from "@/server/auth";
 import { db, newId } from "@/server/db";
@@ -137,7 +138,8 @@ export async function deleteDiscount(id: string): Promise<DiscountResult> {
   const sql = await db();
   await sql`delete from discounts where id = ${id}`;
   refreshStore();
-  return { ok: true };
+  // Redirect from the action: the page we were on no longer exists, so it must not be re-rendered.
+  redirect("/admin/coupons");
 }
 
 export async function resetDiscountUsage(id: string): Promise<DiscountResult> {

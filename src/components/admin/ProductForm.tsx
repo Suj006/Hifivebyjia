@@ -68,7 +68,7 @@ interface Draft {
 let keyCounter = 0;
 const nextKey = () => `f${++keyCounter}`;
 
-function toDraft(p?: Product, categories?: Category[]): Draft {
+function toDraft(p?: Product, categories?: Category[], defaultCategory?: string): Draft {
   return {
     name: p?.name ?? "",
     slug: p?.slug ?? "",
@@ -79,7 +79,7 @@ function toDraft(p?: Product, categories?: Category[]): Draft {
     stock: p ? String(p.stock) : "10",
     sku: p?.sku ?? "",
     status: p?.status ?? "active",
-    category: p?.category ?? categories?.[0]?.slug ?? "",
+    category: p?.category ?? (categories?.some((c) => c.slug === defaultCategory) ? defaultCategory! : categories?.[0]?.slug ?? ""),
     collections: p?.collections ?? [],
     audience: p?.audience ?? ["kids", "teens"],
     tags: (p?.tags ?? ["handmade"]).join(", "),
@@ -160,11 +160,13 @@ interface Props {
   product?: Product;
   categories: Category[];
   collections: Collection[];
+  /** Pre-selected category for a new product. */
+  defaultCategory?: string;
 }
 
-export function ProductForm({ product, categories, collections }: Props) {
+export function ProductForm({ product, categories, collections, defaultCategory }: Props) {
   const router = useRouter();
-  const [d, setD] = useState<Draft>(() => toDraft(product, categories));
+  const [d, setD] = useState<Draft>(() => toDraft(product, categories, defaultCategory));
   const [slugTouched, setSlugTouched] = useState(Boolean(product));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<{ tone: "ok" | "error"; text: string } | null>(null);
@@ -206,9 +208,8 @@ export function ProductForm({ product, categories, collections }: Props) {
 
   async function onDelete() {
     if (!product || !confirm(`Delete “${product.name}” permanently? This can’t be undone. (Tip: set the status to “Hidden” instead to keep it.)`)) return;
-    const res = await deleteProduct(product.id);
-    if (res.ok) router.push("/admin/products");
-    else setMessage({ tone: "error", text: res.error ?? "Couldn’t delete." });
+    const res = await deleteProduct(product.id); // redirects to the product list on success
+    setMessage({ tone: "error", text: res.error ?? "Couldn’t delete." });
   }
 
   async function onDuplicate() {
@@ -333,7 +334,9 @@ export function ProductForm({ product, categories, collections }: Props) {
       <Panel title="Where it appears">
         <div className="grid gap-5 lg:grid-cols-2">
           <div>
-            <FieldLabel htmlFor="pf-category">Category</FieldLabel>
+            <FieldLabel htmlFor="pf-category" hint={<>Need a new one? <Link href="/admin/categories/new" target="_blank" className="font-bold underline">Add a category</Link> (opens in a new tab), then reload.</>}>
+              Category
+            </FieldLabel>
             <select id="pf-category" value={d.category} onChange={(e) => set("category", e.target.value)} className="input py-2.5" aria-invalid={Boolean(errors.category)}>
               <option value="">Choose…</option>
               {categories.map((c) => (

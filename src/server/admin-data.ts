@@ -3,7 +3,7 @@ import { categories as fileCategories, collections as fileCollections } from "@/
 import { db } from "@/server/db";
 import { defaultSettings } from "@/server/defaults";
 import { rowToDiscount, rowToProduct, rowToReview } from "@/server/mappers";
-import type { AppliedDiscount, Category, Collection, CustomerDetails, Discount, OrderStatus, Product, Review, StoreSettings } from "@/types";
+import type { AppliedDiscount, Category, Collection, CustomerDetails, Discount, OrderStatus, Product, ProductStatus, Review, StoreSettings } from "@/types";
 
 /* ------------------------------ Types ------------------------------ */
 
@@ -173,6 +173,25 @@ export const getStoreSettings = async (): Promise<StoreSettings> => ({
 });
 export const getAllCollections = () => getSetting<Collection[]>("collections", fileCollections);
 export const getAllCategories = () => getSetting<Category[]>("categories", fileCategories);
+
+export interface CategoryRow extends Category {
+  /** Products in this category, by status. */
+  counts: Partial<Record<ProductStatus, number>>;
+  total: number;
+}
+
+export async function listCategoriesWithCounts(): Promise<CategoryRow[]> {
+  const sql = await db();
+  const [categories, rows] = await Promise.all([
+    getAllCategories(),
+    sql`select data->>'category' as category, status, count(*)::int as count from products group by 1, 2`,
+  ]);
+  return categories.map((c) => {
+    const counts: CategoryRow["counts"] = {};
+    for (const r of rows) if (r.category === c.slug) counts[r.status as ProductStatus] = r.count;
+    return { ...c, counts, total: Object.values(counts).reduce((a, b) => a + (b ?? 0), 0) };
+  });
+}
 
 /* ------------------------------ Dashboard ------------------------------ */
 

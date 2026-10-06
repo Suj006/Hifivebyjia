@@ -23,7 +23,7 @@ Node 20.9+ is required (Node 22 recommended).
 
 Everything is managed at **`/admin`** (password protected): products & photos, prices, stock,
 coupons & offers (percentage / fixed / buy-X-get-Y, max discount, minimum order, start & end dates,
-usage limits), orders, review approval, Notify-me lists, contact messages, collections, categories,
+usage limits), orders, review approval, Notify-me lists, contact messages, collections, a category master,
 shipping and the WhatsApp number. Changes appear on the website immediately.
 
 - **Owner’s guide:** [`docs/ADMIN-GUIDE.md`](docs/ADMIN-GUIDE.md)

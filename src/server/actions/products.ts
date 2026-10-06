@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { getAllCategories, getAllCollections, getProduct } from "@/server/admin-data";
 import { requireAdmin } from "@/server/auth";
 import { db, newId } from "@/server/db";
@@ -197,7 +198,8 @@ export async function deleteProduct(id: string): Promise<SaveResult> {
   await sql`delete from products where id = ${id}`;
   await deleteImages(product.images.map((i) => i.src));
   refreshStore();
-  return { ok: true };
+  // Redirect from the action: the page we were on no longer exists, so it must not be re-rendered.
+  redirect("/admin/products");
 }
 
 export async function duplicateProduct(id: string): Promise<SaveResult> {

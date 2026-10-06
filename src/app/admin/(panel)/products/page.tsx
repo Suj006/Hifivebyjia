@@ -12,12 +12,12 @@ import { getAllCategories, listProducts } from "@/server/admin-data";
 
 export const metadata: Metadata = { title: "Products" };
 
-export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ q?: string; status?: string }> }) {
-  const { q = "", status = "" } = await searchParams;
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ q?: string; status?: string; category?: string }> }) {
+  const { q = "", status = "", category = "" } = await searchParams;
   const [all, categories] = await Promise.all([listProducts(), getAllCategories()]);
   const term = q.trim().toLowerCase();
   const products = all.filter(
-    (p) => (!status || p.status === status) && (!term || `${p.name} ${p.sku} ${p.tags.join(" ")}`.toLowerCase().includes(term)),
+    (p) => (!status || p.status === status) && (!category || p.category === category) && (!term || `${p.name} ${p.sku} ${p.tags.join(" ")}`.toLowerCase().includes(term)),
   );
 
   return (
@@ -43,6 +43,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
           <option value="">All statuses</option>
           {Object.entries(PRODUCT_STATUS_INFO).map(([value, info]) => (
             <option key={value} value={value}>{info.label}</option>
+          ))}
+        </select>
+        <label htmlFor="category" className="sr-only">Category</label>
+        <select id="category" name="category" defaultValue={category} className="input w-auto py-2.5">
+          <option value="">All categories</option>
+          {categories.map((c) => (
+            <option key={c.slug} value={c.slug}>{c.name}</option>
           ))}
         </select>
         <button type="submit" className="btn btn-secondary btn-sm">Filter</button>
