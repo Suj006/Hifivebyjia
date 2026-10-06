@@ -1,12 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import { Analytics } from "@/components/analytics/Analytics";
-import { JsonLd } from "@/components/common/JsonLd";
-import { Toaster } from "@/components/common/Toaster";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
 import { siteConfig } from "@/config/site";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -75,20 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang={siteConfig.language} className={`${fredoka.variable} ${nunito.variable}`}>
       <body className="flex min-h-dvh flex-col">
-        <a
-          href="#main"
-          className="sr-only z-[100] rounded-full bg-ink px-5 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
-        >
-          Skip to content
-        </a>
-        <JsonLd data={organizationJsonLd()} />
-        <JsonLd data={websiteJsonLd()} />
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <Toaster />
+        {children}
         <Analytics />
       </body>
     </html>

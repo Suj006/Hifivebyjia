@@ -6,14 +6,17 @@ import { Logo } from "@/components/brand/Logo";
 import { Nainu } from "@/components/brand/Nainu";
 import { ProductImage } from "@/components/product/ProductImage";
 import { heroCopy } from "@/content/brand";
-import { getProductBySlug } from "@/lib/catalog";
+import { featuredProducts, findProductBySlug } from "@/lib/catalog";
+import type { Product } from "@/types";
 
 const FLOATING = [
   { slug: "bead-bracelet", className: "right-[0%] top-[0%] w-24 sm:w-32 lg:w-40 rotate-[12deg]", delay: "-2s" },
   { slug: "keychain", className: "right-[4%] bottom-[8%] w-20 sm:w-28 lg:w-32 rotate-[-6deg]", delay: "-4s" },
 ];
 
-export function Hero() {
+export function Hero({ products }: { products: Product[] }) {
+  // Prefer the original picks; fall back to featured products if they were removed.
+  const fallback = featuredProducts(products, 4);
   return (
     <section className="relative overflow-hidden pb-10 sm:pb-16" aria-labelledby="hero-title">
       {/* soft background shapes */}
@@ -58,8 +61,8 @@ export function Hero() {
           <div className="absolute inset-x-[18%] bottom-[4%] animate-bounce-in">
             <Nainu mood="wave" label="Nainu, the Hi Five by Jia mascot, waving hello" />
           </div>
-          {FLOATING.map((f) => {
-            const p = getProductBySlug(f.slug);
+          {FLOATING.map((f, i) => {
+            const p = findProductBySlug(products, f.slug) ?? fallback[i];
             if (!p) return null;
             return (
               <Link

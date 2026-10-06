@@ -22,6 +22,7 @@ export const discounts: Discount[] = [
     scope: { type: "order" },
     minimumOrder: 300,
     firstOrderOnly: true,
+    promote: true,
     active: true,
   },
   {

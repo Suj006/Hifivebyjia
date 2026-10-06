@@ -5,18 +5,28 @@ import { Tag, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { track } from "@/lib/analytics";
 import { cn, formatPrice } from "@/lib/format";
-import { getPromotedCoupons } from "@/lib/pricing";
 import { cartActions } from "@/store/cart";
+import { useHydrated } from "@/store/records";
+import { useStore } from "@/store/store-context";
 import type { CartTotals } from "@/types";
 
 export function CouponForm({ couponCode, error }: { couponCode: string | null; error?: string }) {
   const [code, setCode] = useState("");
-  const promoted = getPromotedCoupons();
+  const [busy, setBusy] = useState(false);
+  const { promotedCoupons } = useStore();
+  const hydrated = useHydrated();
+  // Dates are checked at view time (store data is cached).
+  const now = hydrated ? new Date() : null;
+  const promoted = now
+    ? promotedCoupons.filter((c) => (!c.startsAt || now >= new Date(c.startsAt)) && (!c.endsAt || now <= new Date(c.endsAt)))
+    : [];
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!code.trim()) return;
-    cartActions.applyCoupon(code);
+    if (!code.trim() || busy) return;
+    setBusy(true);
+    await cartActions.applyCoupon(code);
+    setBusy(false);
     track("apply_coupon", { coupon: code.trim().toUpperCase() });
     setCode("");
   }
@@ -48,8 +58,8 @@ export function CouponForm({ couponCode, error }: { couponCode: string | null; e
       </label>
       <div className="flex gap-2">
         <input id="coupon" className="input uppercase" placeholder="Enter code" value={code} onChange={(e) => setCode(e.target.value)} autoComplete="off" />
-        <button type="submit" className="btn btn-secondary shrink-0 px-5" disabled={!code.trim()}>
-          Apply
+        <button type="submit" className="btn btn-secondary shrink-0 px-5" disabled={!code.trim() || busy}>
+          {busy ? "Checking…" : "Apply"}
         </button>
       </div>
       {promoted[0] && (
@@ -71,7 +81,7 @@ function Row({ label, value, className }: { label: ReactNode; value: ReactNode; 
 }
 
 export function TotalsList({ totals }: { totals: CartTotals }) {
-  const threshold = siteConfig.shipping.freeShippingThreshold;
+  const threshold = useStore().settings.freeShippingThreshold;
   const progress = threshold ? Math.min(100, ((totals.subtotal - totals.discountTotal) / threshold) * 100) : 100;
 
   return (
@@ -110,7 +120,7 @@ export function TotalsList({ totals }: { totals: CartTotals }) {
           Yay! You’re saving {formatPrice(totals.discountTotal)} 🎉
         </p>
       )}
-      <p className="mt-3 text-xs text-ink-soft">{siteConfig.shipping.estimateNote}</p>
+      <p className="mt-3 text-xs text-ink-soft">Final shipping is confirmed with your order.</p>
     </div>
   );
 }

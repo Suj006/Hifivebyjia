@@ -11,11 +11,13 @@ import { siteConfig } from "@/config/site";
 import { formatPrice } from "@/lib/format";
 import { buildOrderRequestMessage, isWhatsAppConfigured, mailtoLink, whatsappLink } from "@/lib/whatsapp";
 import { useHydrated, useOrderHistory } from "@/store/records";
+import { useStore } from "@/store/store-context";
 
 export function OrderConfirmation() {
   const hydrated = useHydrated();
   const params = useSearchParams();
   const orders = useOrderHistory();
+  const { settings, productMap } = useStore();
   const ref = params.get("ref");
   const order = orders.find((o) => o.reference === ref) ?? (ref ? undefined : orders[0]);
 
@@ -25,8 +27,8 @@ export function OrderConfirmation() {
     return <EmptyState mood="thinking" title="We couldn’t find that order" text="Order requests are saved on the device they were placed from." action={{ label: "Back to shop", href: "/shop" }} />;
   }
 
-  const message = buildOrderRequestMessage(order);
-  const whatsapp = isWhatsAppConfigured();
+  const message = buildOrderRequestMessage(order, productMap);
+  const whatsapp = isWhatsAppConfigured(settings.whatsappNumber);
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -58,7 +60,7 @@ export function OrderConfirmation() {
           </ol>
 
           <a
-            href={whatsapp ? whatsappLink(message) : mailtoLink(`New order request ${order.reference}`, message)}
+            href={whatsapp ? whatsappLink(settings.whatsappNumber, message) : mailtoLink(`New order request ${order.reference}`, message)}
             target={whatsapp ? "_blank" : undefined}
             rel="noopener noreferrer"
             className={whatsapp ? "btn btn-whatsapp mt-6 w-full text-lg" : "btn btn-primary mt-6 w-full text-lg"}

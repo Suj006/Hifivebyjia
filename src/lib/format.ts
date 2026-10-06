@@ -20,3 +20,14 @@ export const pluralise = (count: number, singular: string, plural = `${singular}
 
 export const cn = (...classes: Array<string | false | null | undefined>) =>
   classes.filter(Boolean).join(" ");
+
+/** Date + time in India time, e.g. "6 Oct 2026, 4:30 pm". */
+export const formatDateTime = (iso: string) =>
+  new Date(iso).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });

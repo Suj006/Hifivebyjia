@@ -11,9 +11,10 @@ import { StarRating } from "@/components/common/StarRating";
 import { ProductImage } from "@/components/product/ProductImage";
 import { siteConfig } from "@/config/site";
 import { founder, meetNainu, microcopy, vision, whyHiFive } from "@/content/brand";
-import { getProductById, getShopProducts } from "@/lib/catalog";
+import { shopProducts } from "@/lib/catalog";
 import { formatDate } from "@/lib/format";
-import { getFeaturedReviews } from "@/lib/reviews";
+import { featuredReviews } from "@/lib/reviews";
+import type { Product, Review } from "@/types";
 
 export function MeetNainuSection() {
   return (
@@ -107,15 +108,15 @@ export function VisionSection() {
   );
 }
 
-export function ReviewsShowcase() {
-  const reviews = getFeaturedReviews(6);
+export function ReviewsShowcase({ reviews: all, products }: { reviews: Review[]; products: Product[] }) {
+  const reviews = featuredReviews(all, 6);
   return (
     <section className="container-page" aria-labelledby="customer-love">
       <SectionHeading id="customer-love" eyebrow="Customer love" title={<>Loved by Our Customers <Heart face className="ml-1 h-[0.9em] w-[0.9em] align-[-0.05em]" /></>} align="center" />
       {reviews.length ? (
         <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => {
-            const product = getProductById(r.productId);
+            const product = products.find((p) => p.id === r.productId);
             return (
               <Reveal as="li" key={r.id} className="card flex flex-col p-6">
                 <StarRating value={r.rating} />
@@ -148,8 +149,8 @@ export function ReviewsShowcase() {
   );
 }
 
-export function InstagramSection() {
-  const tiles = getShopProducts().slice(0, 6);
+export function InstagramSection({ products }: { products: Product[] }) {
+  const tiles = shopProducts(products).slice(0, 6);
   return (
     <section className="container-page" aria-labelledby="instagram">
       <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.4fr]">

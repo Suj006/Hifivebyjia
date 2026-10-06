@@ -7,7 +7,8 @@ import { PriceTag } from "@/components/product/PriceTag";
 import { ProductBadges } from "@/components/product/ProductBadges";
 import { ProductImage } from "@/components/product/ProductImage";
 import { microcopy } from "@/content/brand";
-import { getProductById, isComingSoon, isPurchasable } from "@/lib/catalog";
+import { isComingSoon, isPurchasable } from "@/lib/catalog";
+import { useStore } from "@/store/store-context";
 import { cartActions } from "@/store/cart";
 import { useHydrated } from "@/store/records";
 import { toast } from "@/store/ui";
@@ -16,6 +17,8 @@ import { useWishlist } from "@/store/wishlist";
 export function WishlistView() {
   const hydrated = useHydrated();
   const wishlist = useWishlist();
+  const { productMap } = useStore();
+  const items = wishlist.items.filter((i) => productMap[i.productId]);
 
   if (!hydrated) {
     return (
@@ -27,14 +30,14 @@ export function WishlistView() {
     );
   }
 
-  if (!wishlist.items.length) {
+  if (!items.length) {
     return <EmptyState mood="happy" title={microcopy.emptyWishlistTitle} text={microcopy.emptyWishlistText} action={{ label: "Explore Products", href: "/shop" }} />;
   }
 
   return (
     <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
-      {wishlist.items.map((item) => {
-        const product = getProductById(item.productId);
+      {items.map((item) => {
+        const product = productMap[item.productId];
         if (!product) return null;
         const needsOptions = product.customisation?.some((f) => f.required);
         const purchasable = isPurchasable(product);

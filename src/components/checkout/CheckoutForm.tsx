@@ -16,7 +16,8 @@ import { cn, formatPrice } from "@/lib/format";
 import { buildOrderRequest, makeOrderReference, recordOrderRequest } from "@/lib/repositories";
 import { INDIAN_STATES, hasErrors, validateCustomer, type FieldErrors } from "@/lib/validation";
 import { buildOrderMessage, isWhatsAppConfigured, mailtoLink, whatsappLink } from "@/lib/whatsapp";
-import { useCart } from "@/store/cart";
+import { useCart, useRefreshCoupon } from "@/store/cart";
+import { useStore } from "@/store/store-context";
 import { useHydrated } from "@/store/records";
 import type { CustomerDetails } from "@/types";
 
@@ -33,7 +34,9 @@ export function CheckoutForm() {
   const [customer, setCustomer] = useState<CustomerDetails>(EMPTY);
   const [errors, setErrors] = useState<FieldErrors<FieldKey>>({});
   const [submitting, setSubmitting] = useState(false);
-  const whatsapp = isWhatsAppConfigured();
+  const { settings } = useStore();
+  useRefreshCoupon();
+  const whatsapp = isWhatsAppConfigured(settings.whatsappNumber);
 
   if (!hydrated || (submitting && totals.itemCount === 0)) return <CartSkeleton />;
 
@@ -60,11 +63,11 @@ export function CheckoutForm() {
     const order = buildOrderRequest(totals, customer, reference);
     const message = buildOrderMessage(totals, customer, reference);
 
-    recordOrderRequest(order);
+    recordOrderRequest(order, cart.lines, cart.coupon?.code ?? null);
     track("whatsapp_order", { value: totals.total, currency: "INR", source: "checkout" });
 
     // Opened synchronously inside the submit handler so browsers allow it.
-    const href = whatsapp ? whatsappLink(message) : mailtoLink(`New order request ${reference}`, message);
+    const href = whatsapp ? whatsappLink(settings.whatsappNumber, message) : mailtoLink(`New order request ${reference}`, message);
     if (whatsapp) window.open(href, "_blank", "noopener,noreferrer");
     else window.location.href = href;
 
@@ -204,7 +207,7 @@ export function CheckoutForm() {
               ))}
           </ul>
           <div className="mt-4">
-            <CouponForm couponCode={cart.couponCode} error={totals.couponError} />
+            <CouponForm couponCode={cart.coupon?.code ?? null} error={totals.couponError} />
           </div>
           <div className="mt-5">
             <TotalsList totals={totals} />

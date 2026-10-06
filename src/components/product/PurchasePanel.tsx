@@ -15,6 +15,7 @@ import { unitPriceFor } from "@/lib/pricing";
 import { hasErrors, validateCustomisation, type FieldErrors } from "@/lib/validation";
 import { buildProductEnquiry, isWhatsAppConfigured, whatsappLink } from "@/lib/whatsapp";
 import { cartActions } from "@/store/cart";
+import { useStore } from "@/store/store-context";
 import { toast } from "@/store/ui";
 import type { CustomisationValues, Product } from "@/types";
 
@@ -56,6 +57,7 @@ export function QuantityStepper({
 
 export function PurchasePanel({ product }: { product: Product }) {
   const id = useId();
+  const { settings } = useStore();
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState<CustomisationValues>({});
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -239,8 +241,8 @@ export function PurchasePanel({ product }: { product: Product }) {
         </div>
       )}
 
-      {isWhatsAppConfigured() && (
-        <a href={whatsappLink(buildProductEnquiry(product))} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f7a41] hover:underline">
+      {isWhatsAppConfigured(settings.whatsappNumber) && (
+        <a href={whatsappLink(settings.whatsappNumber, buildProductEnquiry(product))} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#0f7a41] hover:underline">
           <WhatsAppIcon className="h-4 w-4" /> Questions? Ask us on WhatsApp
         </a>
       )}
@@ -248,7 +250,7 @@ export function PurchasePanel({ product }: { product: Product }) {
       <ul className="mt-8 grid gap-3 sm:grid-cols-3">
         {[
           { icon: Hand, title: "Handmade", text: "Made with care, one bead at a time" },
-          { icon: Truck, title: "Ships in India", text: `Free over ${formatPrice(siteConfig.shipping.freeShippingThreshold)}` },
+          { icon: Truck, title: "Ships in India", text: settings.freeShippingThreshold ? `Free over ${formatPrice(settings.freeShippingThreshold)}` : "Across India" },
           { icon: Gift, title: "Gift-ready", text: "Packed in a Hi Five pouch" },
         ].map(({ icon: Icon, title, text }) => (
           <li key={title} className="flex items-start gap-3 rounded-2xl bg-white p-3 shadow-sm sm:flex-col sm:gap-2">

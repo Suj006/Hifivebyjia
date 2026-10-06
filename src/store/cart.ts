@@ -1,34 +1,36 @@
 "use client";
 
-import { useMemo, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { siteConfig } from "@/config/site";
-import { getProductMap } from "@/lib/catalog";
 import { createPersistentStore, STORAGE_KEYS } from "@/lib/persistent-store";
 import { calculateTotals } from "@/lib/pricing";
 import { useOrderHistory } from "@/store/records";
-import type { CartLine, CustomisationValues, SavedItem } from "@/types";
+import { useStore } from "@/store/store-context";
+import type { AppliedCoupon, CartLine, CustomisationValues, SavedItem } from "@/types";
 
 export interface CartState {
   lines: CartLine[];
   saved: SavedItem[];
-  couponCode: string | null;
+  coupon: AppliedCoupon | null;
 }
 
-const EMPTY: CartState = { lines: [], saved: [], couponCode: null };
+const EMPTY: CartState = { lines: [], saved: [], coupon: null };
 const MAX_QTY = siteConfig.commerce.maxQuantityPerLine;
 
 const clampQty = (q: number) => Math.min(MAX_QTY, Math.max(1, Math.floor(Number(q) || 1)));
 
 function sanitize(raw: unknown): CartState {
   if (!raw || typeof raw !== "object") return EMPTY;
-  const r = raw as Partial<CartState>;
-  const products = getProductMap();
-  const validLine = (l: CartLine | SavedItem) =>
-    l && typeof l.lineId === "string" && typeof l.productId === "string" && products[l.productId];
+  const r = raw as Partial<CartState> & { couponCode?: unknown };
+  const validLine = (l: CartLine | SavedItem) => l && typeof l.lineId === "string" && typeof l.productId === "string";
+  let coupon: AppliedCoupon | null = null;
+  if (r.coupon && typeof r.coupon === "object" && typeof r.coupon.code === "string") coupon = r.coupon;
+  // Older carts stored only the code; its rule is re-fetched on the cart page.
+  else if (typeof r.couponCode === "string" && r.couponCode) coupon = { code: r.couponCode, rule: null, error: "Checking code…" };
   return {
     lines: Array.isArray(r.lines) ? r.lines.filter(validLine).map((l) => ({ ...l, quantity: clampQty(l.quantity) })) : [],
     saved: Array.isArray(r.saved) ? r.saved.filter(validLine).map((l) => ({ ...l, quantity: clampQty(l.quantity) })) : [],
-    couponCode: typeof r.couponCode === "string" ? r.couponCode : null,
+    coupon,
   };
 }
 
@@ -51,6 +53,23 @@ const cleanCustomisation = (c?: CustomisationValues) => {
   const out = Object.fromEntries(Object.entries(c).filter(([, v]) => v?.trim()).map(([k, v]) => [k, v.trim()]));
   return Object.keys(out).length ? out : undefined;
 };
+
+/** Asks the server about a coupon code (codes are never shipped to the browser). */
+async function fetchCoupon(code: string): Promise<AppliedCoupon> {
+  const normalised = code.trim().toUpperCase();
+  try {
+    const res = await fetch("/api/coupons", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: normalised }),
+    });
+    const data = (await res.json()) as Partial<AppliedCoupon> & { error?: string };
+    if (!res.ok) return { code: normalised, rule: null, error: data.error ?? "Couldn’t check this code. Please try again." };
+    return { code: data.code ?? normalised, rule: data.rule ?? null, error: data.error };
+  } catch {
+    return { code: normalised, rule: null, error: "You seem to be offline. Please try again." };
+  }
+}
 
 export const cartActions = {
   add(productId: string, quantity = 1, customisation?: CustomisationValues) {
@@ -96,14 +115,16 @@ export const cartActions = {
   removeSaved(lineId: string) {
     store.set((s) => ({ ...s, saved: s.saved.filter((x) => x.lineId !== lineId) }));
   },
-  applyCoupon(code: string) {
-    store.set((s) => ({ ...s, couponCode: code.trim().toUpperCase() || null }));
+  async applyCoupon(code: string) {
+    if (!code.trim()) return;
+    const coupon = await fetchCoupon(code);
+    store.set((s) => ({ ...s, coupon }));
   },
   removeCoupon() {
-    store.set((s) => ({ ...s, couponCode: null }));
+    store.set((s) => ({ ...s, coupon: null }));
   },
   clearCart() {
-    store.set((s) => ({ ...s, lines: [], couponCode: null }));
+    store.set((s) => ({ ...s, lines: [], coupon: null }));
   },
 };
 
@@ -113,13 +134,35 @@ export function useCartState(): CartState {
 
 export function useCart() {
   const state = useCartState();
+  const shop = useStore();
   const orders = useOrderHistory();
   const totals = useMemo(
-    () => calculateTotals(state.lines, getProductMap(), state.couponCode, { isFirstOrder: orders.length === 0 }),
-    [state.lines, state.couponCode, orders.length],
+    () =>
+      calculateTotals(state.lines, shop.productMap, {
+        settings: shop.settings,
+        autoDiscounts: shop.autoDiscounts,
+        coupon: state.coupon,
+        isFirstOrder: orders.length === 0,
+      }),
+    [state.lines, state.coupon, shop.productMap, shop.settings, shop.autoDiscounts, orders.length],
   );
   const count = state.lines.reduce((s, l) => s + l.quantity, 0);
   return { ...state, totals, count, ...cartActions };
+}
+
+/** Re-checks the applied coupon with the server (dates, limits or rules may have changed). */
+export function useRefreshCoupon() {
+  const { coupon } = useCartState();
+  const code = coupon?.code;
+  const refresh = useCallback(async () => {
+    if (!code) return;
+    const fresh = await fetchCoupon(code);
+    store.set((s) => (s.coupon?.code === code ? { ...s, coupon: fresh } : s));
+  }, [code]);
+  useEffect(() => {
+    void refresh();
+    // Only on mount / when the code changes.
+  }, [refresh]);
 }
 
 export function useCartCount() {

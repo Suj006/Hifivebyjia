@@ -1,14 +1,15 @@
 import { siteConfig } from "@/config/site";
-import { getProductById } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
 import type { CartTotals, CustomerDetails, OrderRequest, Product } from "@/types";
 
-export const isWhatsAppConfigured = () => Boolean(siteConfig.contact.whatsappNumber);
+/** The WhatsApp number comes from Admin → Settings (falls back to NEXT_PUBLIC_WHATSAPP_NUMBER). */
+export const cleanNumber = (number: string | undefined) => (number ?? "").replace(/[^\d]/g, "");
 
-/** wa.me link. Falls back to a number-less share link when no number is configured. */
-export function whatsappLink(message: string): string {
-  const number = siteConfig.contact.whatsappNumber;
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+export const isWhatsAppConfigured = (number: string | undefined) => cleanNumber(number).length >= 10;
+
+/** wa.me link with a pre-filled message. */
+export function whatsappLink(number: string, message: string): string {
+  return `https://wa.me/${cleanNumber(number)}?text=${encodeURIComponent(message)}`;
 }
 
 export function mailtoLink(subject: string, body: string): string {
@@ -90,14 +91,14 @@ export function buildOrderMessage(totals: CartTotals, customer?: Partial<Custome
 }
 
 /** Message from a saved order request (order confirmation page). */
-export function buildOrderRequestMessage(order: OrderRequest): string {
+export function buildOrderRequestMessage(order: OrderRequest, productMap: Record<string, Product>): string {
   return compose(
     {
       lines: order.lines.map((l) => ({
         name: l.name,
         quantity: l.quantity,
         lineTotal: l.lineTotal,
-        details: customisationDetails(getProductById(l.productId), l.customisation),
+        details: customisationDetails(productMap[l.productId], l.customisation),
       })),
       subtotal: order.subtotal,
       discounts: order.discounts,

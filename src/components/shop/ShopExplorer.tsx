@@ -11,14 +11,14 @@ import {
   AUDIENCE_LABELS,
   SORT_OPTIONS,
   filterProducts,
-  getCategories,
-  getCollections,
-  getPriceBounds,
-  getShopProducts,
+  priceBounds,
+  productInCollection,
+  shopProducts,
   type Availability,
   type ProductFilters,
   type SortOption,
 } from "@/lib/catalog";
+import { useStore } from "@/store/store-context";
 import { cn, formatPrice, pluralise } from "@/lib/format";
 import type { Audience } from "@/types";
 
@@ -79,12 +79,15 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
     setQuery(filters.q ?? "");
   }
 
-  const pool = useMemo(() => getShopProducts(), []);
-  const bounds = useMemo(() => getPriceBounds(pool), [pool]);
-  const results = useMemo(
-    () => filterProducts(pool, { ...filters, collection: fixedCollection ? [fixedCollection, ...(filters.collection ?? [])] : filters.collection }),
-    [pool, filters, fixedCollection],
-  );
+  const shop = useStore();
+  const ctx = useMemo(() => ({ collections: shop.collections, categories: shop.categories }), [shop.collections, shop.categories]);
+  const pool = useMemo(() => {
+    const all = shopProducts(shop.products);
+    const fixed = fixedCollection ? shop.collections.find((c) => c.slug === fixedCollection) : undefined;
+    return fixed ? all.filter((p) => productInCollection(p, fixed)) : all;
+  }, [shop.products, shop.collections, fixedCollection]);
+  const bounds = useMemo(() => priceBounds(pool), [pool]);
+  const results = useMemo(() => filterProducts(pool, filters, ctx), [pool, filters, ctx]);
 
   // Debounced search-as-you-type.
   useEffect(() => {
@@ -124,9 +127,9 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
 
   const priceBand = PRICE_BANDS.findIndex((b) => b.min === filters.minPrice && b.max === filters.maxPrice);
   const activeChips: { label: string; clear: () => void }[] = [
-    ...(filters.category ?? []).map((c) => ({ label: getCategories().find((x) => x.slug === c)?.name ?? c, clear: () => toggle("category", c) })),
+    ...(filters.category ?? []).map((c) => ({ label: shop.categories.find((x) => x.slug === c)?.name ?? c, clear: () => toggle("category", c) })),
     ...(filters.audience ?? []).map((a) => ({ label: AUDIENCE_LABELS[a] ?? a, clear: () => toggle("audience", a) })),
-    ...(filters.collection ?? []).map((c) => ({ label: getCollections().find((x) => x.slug === c)?.name ?? c, clear: () => toggle("collection", c) })),
+    ...(filters.collection ?? []).map((c) => ({ label: shop.collections.find((x) => x.slug === c)?.name ?? c, clear: () => toggle("collection", c) })),
     ...(filters.availability ?? []).map((a) => ({ label: AVAILABILITY.find((x) => x.value === a)?.label ?? a, clear: () => toggle("availability", a) })),
     ...(filters.minPrice !== undefined || filters.maxPrice !== undefined
       ? [{ label: priceBand >= 0 ? PRICE_BANDS[priceBand].label : "Price", clear: () => update({ min: null, max: null }) }]
@@ -142,7 +145,7 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
   const filterPanel = (
     <div className="space-y-7">
       <FilterGroup title="Category">
-        {getCategories().map((c) => (
+        {shop.categories.map((c) => (
           <Check key={c.slug} label={c.name} checked={filters.category?.includes(c.slug) ?? false} onChange={() => toggle("category", c.slug)} />
         ))}
       </FilterGroup>
@@ -175,7 +178,7 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
       </FilterGroup>
       {!fixedCollection && (
         <FilterGroup title="Collection">
-          {getCollections().map((c) => (
+          {shop.collections.map((c) => (
             <Check key={c.slug} label={c.name} checked={filters.collection?.includes(c.slug) ?? false} onChange={() => toggle("collection", c.slug)} />
           ))}
         </FilterGroup>
@@ -253,7 +256,7 @@ export function ShopExplorer({ fixedCollection }: ShopExplorerProps) {
 
         <div className="mt-6">
           {results.length > 0 ? (
-            <ProductGrid products={results} priorityCount={4} />
+            <ProductGrid products={results} categories={shop.categories} ratings={shop.ratings} priorityCount={4} />
           ) : (
             <EmptyState
               mood="thinking"

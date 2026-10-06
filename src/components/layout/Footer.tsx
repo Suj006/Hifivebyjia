@@ -6,11 +6,12 @@ import { BeadString } from "@/components/brand/Decor";
 import { InstagramIcon, WhatsAppIcon } from "@/components/brand/SocialIcons";
 import { footerNav } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
-import { whatsappLink } from "@/lib/whatsapp";
+import { isWhatsAppConfigured, whatsappLink } from "@/lib/whatsapp";
+import type { StoreSettings } from "@/types";
 
-export function Footer() {
+export function Footer({ settings }: { settings: StoreSettings }) {
   const year = new Date().getFullYear();
-  const wa = siteConfig.contact.whatsappNumber;
+  const wa = isWhatsAppConfigured(settings.whatsappNumber) ? settings.whatsappNumber : "";
   return (
     <footer className="relative mt-24 overflow-hidden bg-ink text-white">
       <div className="absolute inset-x-0 top-0 h-2 bg-linear-to-r from-pink via-sunny to-sky" aria-hidden />
@@ -34,7 +35,7 @@ export function Footer() {
             </li>
             {wa && (
               <li>
-                <a href={whatsappLink(`Hello ${siteConfig.name}! ✋`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-sunny">
+                <a href={whatsappLink(wa, `Hello ${siteConfig.name}! ✋`)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-sunny">
                   <WhatsAppIcon /> WhatsApp
                 </a>
               </li>

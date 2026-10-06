@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/config/site";
-import { getCollections, getPublicProducts } from "@/lib/catalog";
+import { getStore } from "@/server/store";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const store = await getStore();
   const now = new Date();
   const staticPages: { path: string; priority: number; changeFrequency: "daily" | "weekly" | "monthly" | "yearly" }[] = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
@@ -21,13 +22,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages.map((p) => ({ url: absoluteUrl(p.path), lastModified: now, changeFrequency: p.changeFrequency, priority: p.priority })),
-    ...getCollections().map((c) => ({
+    ...store.collections.map((c) => ({
       url: absoluteUrl(`/categories/${c.slug}`),
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })),
-    ...getPublicProducts().map((p) => ({
+    ...store.products.map((p) => ({
       url: absoluteUrl(`/products/${p.slug}`),
       lastModified: new Date(p.updatedAt),
       changeFrequency: "weekly" as const,

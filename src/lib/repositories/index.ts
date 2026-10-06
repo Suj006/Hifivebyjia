@@ -3,14 +3,13 @@
 /**
  * Client-side data access for submissions.
  *
- * Phase 1: each submission is validated, saved on this device, and POSTed to
- * `/api/forms/[type]`, which forwards it to FORMS_WEBHOOK_URL when configured
- * (e.g. a Google Sheet, Formspree or Make scenario) so the brand receives it.
- * Phase 2: point these functions at Supabase/real API endpoints instead.
+ * Each submission is validated, saved on this device (so the customer can see
+ * e.g. "your review is pending"), and POSTed to `/api/forms/[type]`, which
+ * stores it in the database for the admin dashboard.
  */
 import { siteConfig } from "@/config/site";
 import { localReviewsStore, notifyStore, ordersStore } from "@/store/records";
-import type { CartTotals, CustomerDetails, NotifyRequest, OrderRequest, Review, ReviewStatus } from "@/types";
+import type { CartLine, CartTotals, CustomerDetails, NotifyRequest, OrderRequest, Review } from "@/types";
 import type { ContactInput, ReviewInput } from "@/lib/validation";
 
 export type FormType = "review" | "notify" | "contact" | "order";
@@ -59,22 +58,6 @@ export async function submitReview(input: ReviewInput & { website?: string }): P
   }
   return result;
 }
-
-/**
- * Moderation actions (used by the local moderation preview at /admin/reviews).
- * Phase 2: these become authenticated admin API calls.
- */
-export const reviewModeration = {
-  setStatus(id: string, status: ReviewStatus) {
-    localReviewsStore.set((list) => list.map((r) => (r.id === id ? { ...r, status } : r)));
-  },
-  toggleFeatured(id: string) {
-    localReviewsStore.set((list) => list.map((r) => (r.id === id ? { ...r, featured: !r.featured } : r)));
-  },
-  remove(id: string) {
-    localReviewsStore.set((list) => list.filter((r) => r.id !== id));
-  },
-};
 
 /* ------------------------------ Notify me ---------------------------- */
 
@@ -134,8 +117,17 @@ export function buildOrderRequest(totals: CartTotals, customer: CustomerDetails,
   };
 }
 
-/** Saves the order request locally and notifies the brand (best effort). */
-export function recordOrderRequest(order: OrderRequest) {
+/**
+ * Saves the order request on this device and sends it to the shop, where the
+ * server re-prices it (admin → Orders). Best effort: WhatsApp is the main channel.
+ */
+export function recordOrderRequest(order: OrderRequest, cartLines: CartLine[], couponCode: string | null) {
   ordersStore.set((list) => [order, ...list].slice(0, 20));
-  void post("order", order);
+  void post("order", {
+    reference: order.reference,
+    customer: order.customer,
+    lines: cartLines.map((l) => ({ lineId: l.lineId, productId: l.productId, quantity: l.quantity, customisation: l.customisation })),
+    couponCode,
+    clientTotal: order.total,
+  });
 }

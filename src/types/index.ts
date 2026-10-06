@@ -224,6 +224,20 @@ export interface Discount {
   /** Automatic offers apply without a code (e.g. limited-time sale). */
   automatic?: boolean;
   active: boolean;
+  /** Maximum number of orders that may use this coupon (empty = unlimited). */
+  usageLimit?: number;
+  /** Orders that used this coupon (maintained by the server). */
+  usageCount?: number;
+  /** Show this code as a hint in the cart. */
+  promote?: boolean;
+}
+
+/** Coupon applied in the cart, as returned by /api/coupons. */
+export interface AppliedCoupon {
+  code: string;
+  rule: Discount | null;
+  /** Server-side reason the code can't be used (unknown, expired, limit reached…). */
+  error?: string;
 }
 
 export interface AppliedDiscount {
@@ -300,6 +314,38 @@ export interface OrderRequest {
   paymentMethod: PaymentMethod;
   status: "requested";
 }
+
+/* ------------------------------------------------------------------ */
+/* Store (data the storefront reads, from the database or code files)   */
+/* ------------------------------------------------------------------ */
+
+export interface StoreSettings {
+  whatsappNumber: string;
+  shippingEnabled: boolean;
+  standardShippingRate: number;
+  /** 0 disables free shipping. */
+  freeShippingThreshold: number;
+  dispatchTime: string;
+  deliveryTime: string;
+}
+
+export interface StoreData {
+  /** Products visible on the storefront (active, sold out, coming soon). */
+  products: Product[];
+  /** Visible collections, sorted. */
+  collections: Collection[];
+  categories: Category[];
+  settings: StoreSettings;
+  /** Approved reviews only. */
+  reviews: Review[];
+  /** Active automatic offers (no code needed). Coupon codes are never sent to browsers. */
+  autoDiscounts: Discount[];
+  /** Codes the admin chose to advertise in the cart. */
+  promotedCoupons: { code: string; description: string; startsAt?: string; endsAt?: string }[];
+  source: "database" | "files";
+}
+
+export type OrderStatus = "requested" | "confirmed" | "paid" | "packed" | "shipped" | "delivered" | "cancelled";
 
 export interface NotifyRequest {
   email: string;

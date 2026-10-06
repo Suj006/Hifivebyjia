@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Home, Search } from "lucide-react";
 import { Sparkle } from "@/components/brand/Decor";
 import { Nainu } from "@/components/brand/Nainu";
+import { ShopChrome } from "@/components/layout/ShopChrome";
 import { microcopy } from "@/content/brand";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
+    <ShopChrome>
     <div className="container-page flex flex-col items-center py-16 text-center sm:py-24">
       <div className="relative w-56 sm:w-64">
         <Sparkle className="absolute top-0 left-0 h-8 w-8 animate-sparkle" color="#FAAF04" />
@@ -33,5 +35,6 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
+    </ShopChrome>
   );
 }

@@ -1,13 +1,22 @@
 import { siteConfig } from "@/config/site";
+import type { StoreSettings } from "@/types";
 
-const { shipping, contact } = siteConfig;
+const { contact } = siteConfig;
+
+/** Shipping wording that follows Admin → Settings. */
+function shippingCostText(s: StoreSettings): string[] {
+  if (!s.shippingEnabled || !s.standardShippingRate) return ["Shipping is free on all orders."];
+  const lines = [`Standard shipping is estimated at ₹${s.standardShippingRate} per order.`];
+  if (s.freeShippingThreshold) lines.push(`Orders of ₹${s.freeShippingThreshold} or more get free standard shipping.`);
+  return lines;
+}
 
 export interface FaqItem {
   q: string;
   a: string;
 }
 
-export const faqs: { title: string; items: FaqItem[] }[] = [
+export const getFaqs = (shipping: StoreSettings): { title: string; items: FaqItem[] }[] => [
   {
     title: "Ordering",
     items: [
@@ -59,7 +68,7 @@ export const faqs: { title: string; items: FaqItem[] }[] = [
       },
       {
         q: "Is shipping free?",
-        a: `Orders of ₹${shipping.freeShippingThreshold} or more get free standard shipping. Below that, standard shipping is estimated at ₹${shipping.standardRate}.`,
+        a: shippingCostText(shipping).join(" "),
       },
       {
         q: "What if something arrives damaged?",
@@ -87,7 +96,7 @@ export interface PolicySection {
   body: string[];
 }
 
-export const shippingPolicy: PolicySection[] = [
+export const getShippingPolicy = (shipping: StoreSettings): PolicySection[] => [
   {
     heading: "Where we ship",
     body: ["We plan to ship across India. If you are outside India, please email us before ordering."],
@@ -95,8 +104,7 @@ export const shippingPolicy: PolicySection[] = [
   {
     heading: "Shipping costs",
     body: [
-      `Standard shipping is estimated at ₹${shipping.standardRate} per order.`,
-      `Orders of ₹${shipping.freeShippingThreshold} or more get free standard shipping.`,
+      ...shippingCostText(shipping),
       "Your exact shipping cost is confirmed when we confirm your order on WhatsApp.",
     ],
   },

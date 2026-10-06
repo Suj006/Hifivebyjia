@@ -26,10 +26,9 @@ export function ProductReviews({ productId, productName, approved }: Props) {
   const hydrated = useHydrated();
   const local = useLocalReviews().filter((r) => r.productId === productId);
   const mine = hydrated ? local : [];
-  const pending = mine.filter((r) => r.status === "pending");
-  // Reviews approved in the local moderation preview are only shown on this device.
-  const previewApproved = mine.filter((r) => r.status === "approved");
-  const visible = [...approved, ...previewApproved];
+  // The customer's own submissions stay "pending" on their device until approved in admin.
+  const pending = mine.filter((r) => r.status === "pending" && !approved.some((a) => a.name === r.name && a.text === r.text));
+  const visible = approved;
   const summary = summarizeReviews(visible);
   const [showForm, setShowForm] = useState(false);
 
@@ -96,7 +95,7 @@ export function ProductReviews({ productId, productName, approved }: Props) {
           ))}
 
           {visible.length > 0
-            ? visible.map((r) => <ReviewCard key={r.id} review={r} preview={previewApproved.includes(r)} />)
+            ? visible.map((r) => <ReviewCard key={r.id} review={r} />)
             : !showForm &&
               pending.length === 0 && (
                 <EmptyState compact mood="happy" title={microcopy.reviewPrompt} text={microcopy.noReviews} className="border border-line">
@@ -111,7 +110,7 @@ export function ProductReviews({ productId, productName, approved }: Props) {
   );
 }
 
-function ReviewCard({ review, preview }: { review: Review; preview?: boolean }) {
+function ReviewCard({ review }: { review: Review }) {
   return (
     <article className="card p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -129,7 +128,6 @@ function ReviewCard({ review, preview }: { review: Review; preview?: boolean }) 
         {review.name}
         {/* Phase 2: show "Verified Purchase" only for delivered orders. */}
         {review.verifiedPurchase && siteConfig.features.customerAccounts && <span className="chip bg-mint-soft text-mint-deep">✓ Verified Purchase</span>}
-        {preview && <span className="chip bg-sunny-soft text-sunny-deep">Preview · visible on this device only</span>}
       </p>
     </article>
   );

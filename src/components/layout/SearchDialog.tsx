@@ -8,7 +8,8 @@ import { Nainu } from "@/components/brand/Nainu";
 import { ProductImage } from "@/components/product/ProductImage";
 import { microcopy } from "@/content/brand";
 import { track } from "@/lib/analytics";
-import { getCollections, getPublicProducts, isComingSoon, searchProducts } from "@/lib/catalog";
+import { isComingSoon, searchProducts } from "@/lib/catalog";
+import { useStore } from "@/store/store-context";
 import { formatPrice } from "@/lib/format";
 import { setSearchOpen, useSearchOpen } from "@/store/ui";
 
@@ -19,9 +20,12 @@ export function SearchDialog() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const pool = useMemo(() => getPublicProducts(), []);
-  const results = useMemo(() => (query.trim() ? searchProducts(pool, query).slice(0, 6) : []), [pool, query]);
-  const collections = useMemo(() => getCollections().slice(0, 6), []);
+  const shop = useStore();
+  const results = useMemo(
+    () => (query.trim() ? searchProducts(shop.products, query, shop).slice(0, 6) : []),
+    [shop, query],
+  );
+  const collections = shop.collections.slice(0, 6);
 
   useEffect(() => {
     if (!open) return;

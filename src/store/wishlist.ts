@@ -1,16 +1,13 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { getProductMap } from "@/lib/catalog";
 import { createPersistentStore, STORAGE_KEYS } from "@/lib/persistent-store";
 import type { WishlistItem } from "@/types";
 
-const store = createPersistentStore<WishlistItem[]>(STORAGE_KEYS.wishlist, [], (raw) => {
-  const products = getProductMap();
-  return Array.isArray(raw)
-    ? raw.filter((i): i is WishlistItem => i && typeof i.productId === "string" && Boolean(products[i.productId]))
-    : [];
-});
+// Items for products that no longer exist are simply skipped when shown.
+const store = createPersistentStore<WishlistItem[]>(STORAGE_KEYS.wishlist, [], (raw) =>
+  Array.isArray(raw) ? raw.filter((i): i is WishlistItem => i && typeof i.productId === "string") : [],
+);
 
 export const wishlistActions = {
   toggle(productId: string): boolean {

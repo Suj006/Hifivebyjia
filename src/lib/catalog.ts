@@ -1,56 +1,37 @@
 /**
- * Catalogue queries. Components never read `src/data` directly — they go
- * through these functions so Phase 2 can swap in database queries.
+ * Catalogue helpers. Pure functions over store data (`StoreData`), used both
+ * on the server (pages) and in the browser (search, filters, cart).
  */
-import { categories, collections } from "@/data/categories";
-import { products } from "@/data/products";
-import type { Audience, Collection, Product, ProductStatus } from "@/types";
-
-const PUBLIC_STATUSES: ProductStatus[] = ["active", "sold_out", "coming_soon"];
+import type { Audience, Category, Collection, Product } from "@/types";
 
 export const isPurchasable = (p: Product) => p.status === "active" && p.stock > 0;
 export const isSoldOut = (p: Product) => p.status === "sold_out" || (p.status === "active" && p.stock <= 0);
 export const isComingSoon = (p: Product) => p.status === "coming_soon";
 
-/** All products visible on the storefront (excludes drafts/discontinued). */
-export function getPublicProducts(): Product[] {
-  return products.filter((p) => PUBLIC_STATUSES.includes(p.status));
+export function bySortOrder(a: Product, b: Product) {
+  return (a.sortOrder ?? 99) - (b.sortOrder ?? 99);
 }
 
 /** Products shown in the shop grid (active + sold out). */
-export function getShopProducts(): Product[] {
-  return products.filter((p) => p.status === "active" || p.status === "sold_out");
-}
+export const shopProducts = (products: Product[]) => products.filter((p) => p.status === "active" || p.status === "sold_out");
 
-export function getComingSoonProducts(): Product[] {
-  return products.filter(isComingSoon).sort(bySortOrder);
-}
+export const comingSoonProducts = (products: Product[]) => products.filter(isComingSoon).sort(bySortOrder);
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return getPublicProducts().find((p) => p.slug === slug);
-}
+export const findProductBySlug = (products: Product[], slug: string) => products.find((p) => p.slug === slug);
 
-export function getProductById(id: string): Product | undefined {
-  return products.find((p) => p.id === id);
-}
+export const toProductMap = (products: Product[]): Record<string, Product> => Object.fromEntries(products.map((p) => [p.id, p]));
 
-export function getProductMap(): Record<string, Product> {
-  return Object.fromEntries(products.map((p) => [p.id, p]));
-}
+export const featuredProducts = (products: Product[], limit = 8) =>
+  shopProducts(products).filter((p) => p.featured).sort(bySortOrder).slice(0, limit);
 
-export function getFeaturedProducts(limit = 8): Product[] {
-  return getShopProducts().filter((p) => p.featured).sort(bySortOrder).slice(0, limit);
-}
-
-export function getNewArrivals(limit = 4): Product[] {
-  return getShopProducts()
+export const newArrivals = (products: Product[], limit = 4) =>
+  shopProducts(products)
     .filter((p) => p.newArrival)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
     .slice(0, limit);
-}
 
-export function getRelatedProducts(product: Product, limit = 4): Product[] {
-  return getShopProducts()
+export function relatedProducts(products: Product[], product: Product, limit = 4): Product[] {
+  return shopProducts(products)
     .filter((p) => p.id !== product.id)
     .map((p) => ({
       p,
@@ -64,21 +45,7 @@ export function getRelatedProducts(product: Product, limit = 4): Product[] {
     .map(({ p }) => p);
 }
 
-export function getCategories() {
-  return categories;
-}
-
-export function getCategoryName(slug: string) {
-  return categories.find((c) => c.slug === slug)?.name ?? slug;
-}
-
-export function getCollections(): Collection[] {
-  return collections.filter((c) => c.visible).sort((a, b) => a.sortOrder - b.sortOrder);
-}
-
-export function getCollection(slug: string): Collection | undefined {
-  return getCollections().find((c) => c.slug === slug);
-}
+export const categoryName = (categories: Category[], slug: string) => categories.find((c) => c.slug === slug)?.name ?? slug;
 
 export function productInCollection(product: Product, collection: Collection): boolean {
   if (product.collections.includes(collection.slug)) return true;
@@ -90,10 +57,8 @@ export function productInCollection(product: Product, collection: Collection): b
   return false;
 }
 
-export function getProductsInCollection(slug: string, includeComingSoon = false): Product[] {
-  const collection = getCollection(slug);
-  if (!collection) return [];
-  const pool = includeComingSoon ? getPublicProducts() : getShopProducts();
+export function productsInCollection(products: Product[], collection: Collection, includeComingSoon = false): Product[] {
+  const pool = includeComingSoon ? products : shopProducts(products);
   return pool.filter((p) => productInCollection(p, collection)).sort(bySortOrder);
 }
 
@@ -107,7 +72,7 @@ export const AUDIENCE_LABELS: Record<Audience, string> = {
 };
 
 /* ------------------------------------------------------------------ */
-/* Search, filter & sort (used by the shop page and header search)     */
+/* Search, filter & sort                                               */
 /* ------------------------------------------------------------------ */
 
 export type SortOption = "featured" | "newest" | "bestselling" | "price-asc" | "price-desc";
@@ -133,23 +98,26 @@ export interface ProductFilters {
   sort?: SortOption;
 }
 
+export interface CatalogContext {
+  collections: Collection[];
+  categories: Category[];
+}
+
 const normalise = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "");
 
-function searchableText(p: Product): string {
-  const collectionNames = getCollections()
-    .filter((c) => productInCollection(p, c))
-    .map((c) => c.name);
+function searchableText(p: Product, ctx: CatalogContext): string {
+  const collectionNames = ctx.collections.filter((c) => productInCollection(p, c)).map((c) => c.name);
   return normalise(
-    [p.name, p.shortDescription, p.description, getCategoryName(p.category), p.category, ...p.tags, ...collectionNames].join(" "),
+    [p.name, p.shortDescription, p.description, categoryName(ctx.categories, p.category), p.category, ...p.tags, ...collectionNames].join(" "),
   );
 }
 
-export function searchProducts(pool: Product[], query: string): Product[] {
+export function searchProducts(pool: Product[], query: string, ctx: CatalogContext): Product[] {
   const terms = normalise(query).split(/\s+/).filter(Boolean);
   if (!terms.length) return pool;
   return pool
     .map((p) => {
-      const text = searchableText(p);
+      const text = searchableText(p, ctx);
       const name = normalise(p.name);
       if (!terms.every((t) => text.includes(t) || text.includes(t.replace(/s$/, "")))) return null;
       const score = terms.reduce((s, t) => s + (name.includes(t) ? 3 : 1), 0);
@@ -158,10 +126,6 @@ export function searchProducts(pool: Product[], query: string): Product[] {
     .filter((x): x is { p: Product; score: number } => x !== null)
     .sort((a, b) => b.score - a.score)
     .map((x) => x.p);
-}
-
-export function bySortOrder(a: Product, b: Product) {
-  return (a.sortOrder ?? 99) - (b.sortOrder ?? 99);
 }
 
 export function sortProducts(list: Product[], sort: SortOption = "featured"): Product[] {
@@ -182,12 +146,12 @@ export function sortProducts(list: Product[], sort: SortOption = "featured"): Pr
   }
 }
 
-export function filterProducts(pool: Product[], f: ProductFilters): Product[] {
-  let list = f.q ? searchProducts(pool, f.q) : pool;
+export function filterProducts(pool: Product[], f: ProductFilters, ctx: CatalogContext): Product[] {
+  let list = f.q ? searchProducts(pool, f.q, ctx) : pool;
   if (f.category?.length) list = list.filter((p) => f.category!.includes(p.category));
   if (f.audience?.length) list = list.filter((p) => p.audience.some((a) => f.audience!.includes(a)));
   if (f.collection?.length) {
-    const cols = getCollections().filter((c) => f.collection!.includes(c.slug));
+    const cols = ctx.collections.filter((c) => f.collection!.includes(c.slug));
     list = list.filter((p) => cols.some((c) => productInCollection(p, c)));
   }
   if (f.availability?.length) {
@@ -204,7 +168,8 @@ export function filterProducts(pool: Product[], f: ProductFilters): Product[] {
   return sortProducts(list, f.sort);
 }
 
-export function getPriceBounds(pool: Product[] = getShopProducts()) {
+export function priceBounds(pool: Product[]) {
+  if (!pool.length) return { min: 0, max: 0 };
   const prices = pool.map((p) => p.price);
   return { min: Math.min(...prices), max: Math.max(...prices) };
 }

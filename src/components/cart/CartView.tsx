@@ -9,11 +9,12 @@ import { ProductImage } from "@/components/product/ProductImage";
 import { QuantityStepper } from "@/components/product/PurchasePanel";
 import { microcopy } from "@/content/brand";
 import { track } from "@/lib/analytics";
-import { getProductById, isPurchasable } from "@/lib/catalog";
+import { isPurchasable } from "@/lib/catalog";
 import { formatPrice } from "@/lib/format";
 import { unitPriceFor } from "@/lib/pricing";
 import { buildOrderMessage, isWhatsAppConfigured, whatsappLink } from "@/lib/whatsapp";
-import { useCart } from "@/store/cart";
+import { useCart, useRefreshCoupon } from "@/store/cart";
+import { useStore } from "@/store/store-context";
 import { useHydrated } from "@/store/records";
 import { toast } from "@/store/ui";
 import type { CustomisationValues, Product } from "@/types";
@@ -50,6 +51,8 @@ export function CartSkeleton() {
 export function CartView() {
   const hydrated = useHydrated();
   const cart = useCart();
+  const shop = useStore();
+  useRefreshCoupon();
   const { totals } = cart;
 
   if (!hydrated) return <CartSkeleton />;
@@ -61,7 +64,7 @@ export function CartView() {
       </h2>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {cart.saved.map((item) => {
-          const product = getProductById(item.productId);
+          const product = shop.productMap[item.productId];
           if (!product) return null;
           const available = isPurchasable(product);
           return (
@@ -186,7 +189,7 @@ export function CartView() {
               Order summary
             </h2>
             <div className="mt-5">
-              <CouponForm couponCode={cart.couponCode} error={totals.couponError} />
+              <CouponForm couponCode={cart.coupon?.code ?? null} error={totals.couponError} />
             </div>
             <div className="mt-6">
               <TotalsList totals={totals} />
@@ -199,9 +202,9 @@ export function CartView() {
             >
               <Lock className="h-5 w-5" aria-hidden /> Checkout <ArrowRight className="h-5 w-5" aria-hidden />
             </Link>
-            {isWhatsAppConfigured() && totals.itemCount > 0 && (
+            {isWhatsAppConfigured(shop.settings.whatsappNumber) && totals.itemCount > 0 && (
               <a
-                href={whatsappLink(buildOrderMessage(totals))}
+                href={whatsappLink(shop.settings.whatsappNumber, buildOrderMessage(totals))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp mt-3 w-full"

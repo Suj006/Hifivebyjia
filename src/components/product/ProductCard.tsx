@@ -5,19 +5,21 @@ import { ProductBadges, SampleTag } from "@/components/product/ProductBadges";
 import { ProductImage } from "@/components/product/ProductImage";
 import { QuickAddButton } from "@/components/product/QuickAddButton";
 import { WishlistButton } from "@/components/product/WishlistButton";
-import { getCategoryName, isComingSoon, isSoldOut } from "@/lib/catalog";
+import { categoryName, isComingSoon, isSoldOut } from "@/lib/catalog";
 import { cn } from "@/lib/format";
-import { getApprovedReviews, summarizeReviews } from "@/lib/reviews";
-import type { Product } from "@/types";
+import type { RatingSummary } from "@/lib/reviews";
+import type { Category, Product } from "@/types";
 
 interface ProductCardProps {
   product: Product;
+  categoryLabel: string;
+  rating?: RatingSummary;
   priority?: boolean;
   className?: string;
 }
 
-export function ProductCard({ product, priority, className }: ProductCardProps) {
-  const summary = summarizeReviews(getApprovedReviews(product.id));
+export function ProductCard({ product, categoryLabel, rating, priority, className }: ProductCardProps) {
+  const summary = rating ?? { average: 0, count: 0 };
   const href = `/products/${product.slug}`;
   const soldOut = isSoldOut(product);
   const hover = product.images[1];
@@ -53,7 +55,7 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <p className="text-xs font-bold tracking-wider text-ink-soft uppercase">{getCategoryName(product.category)}</p>
+        <p className="text-xs font-bold tracking-wider text-ink-soft uppercase">{categoryLabel}</p>
         <h3 className="font-display text-lg leading-snug font-semibold">
           <Link href={href} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
             {product.name}
@@ -81,12 +83,25 @@ export function ProductCard({ product, priority, className }: ProductCardProps) 
   );
 }
 
-export function ProductGrid({ products, priorityCount = 0 }: { products: Product[]; priorityCount?: number }) {
+interface ProductGridProps {
+  products: Product[];
+  categories: Category[];
+  ratings: Record<string, RatingSummary>;
+  priorityCount?: number;
+}
+
+export function ProductGrid({ products, categories, ratings, priorityCount = 0 }: ProductGridProps) {
   return (
     <ul className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4" role="list">
       {products.map((p, i) => (
         <li key={p.id} className="flex">
-          <ProductCard product={p} priority={i < priorityCount} className="w-full" />
+          <ProductCard
+            product={p}
+            categoryLabel={categoryName(categories, p.category)}
+            rating={ratings[p.id]}
+            priority={i < priorityCount}
+            className="w-full"
+          />
         </li>
       ))}
     </ul>

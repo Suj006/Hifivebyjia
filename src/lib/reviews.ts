@@ -1,18 +1,14 @@
-import { reviews } from "@/data/reviews";
 import type { Review } from "@/types";
 
-/** Only approved reviews are ever public. */
-export const isPublic = (r: Review) => r.status === "approved";
+/**
+ * Review helpers. Inputs are the approved reviews from the store — pending or
+ * rejected reviews never reach the storefront.
+ */
+export const reviewsForProduct = (reviews: Review[], productId: string) =>
+  reviews.filter((r) => r.status === "approved" && r.productId === productId);
 
-export function getApprovedReviews(productId?: string): Review[] {
-  return reviews
-    .filter(isPublic)
-    .filter((r) => !productId || r.productId === productId)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-}
-
-export function getFeaturedReviews(limit = 6): Review[] {
-  const approved = getApprovedReviews();
+export function featuredReviews(reviews: Review[], limit = 6): Review[] {
+  const approved = reviews.filter((r) => r.status === "approved");
   const featured = approved.filter((r) => r.featured);
   return (featured.length ? featured : approved).slice(0, limit);
 }
@@ -31,8 +27,8 @@ export function summarizeReviews(list: Review[]): RatingSummary {
   return { average, count, distribution };
 }
 
-export function getRatingSummaries(): Record<string, RatingSummary> {
+export function ratingSummaries(reviews: Review[]): Record<string, RatingSummary> {
   const byProduct: Record<string, Review[]> = {};
-  for (const r of getApprovedReviews()) (byProduct[r.productId] ??= []).push(r);
+  for (const r of reviews) if (r.status === "approved") (byProduct[r.productId] ??= []).push(r);
   return Object.fromEntries(Object.entries(byProduct).map(([id, list]) => [id, summarizeReviews(list)]));
 }

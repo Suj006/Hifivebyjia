@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ProductImage } from "@/components/product/ProductImage";
-import { getProductsInCollection } from "@/lib/catalog";
+import { productsInCollection } from "@/lib/catalog";
 import { cn, pluralise } from "@/lib/format";
-import type { Collection, CollectionTheme } from "@/types";
+import type { Collection, CollectionTheme, Product } from "@/types";
 
 export const THEME_CLASSES: Record<CollectionTheme, { bg: string; accent: string }> = {
   pink: { bg: "from-pink-soft to-[#FFD0E6]", accent: "text-pink-deep" },
@@ -14,10 +14,10 @@ export const THEME_CLASSES: Record<CollectionTheme, { bg: string; accent: string
   tangerine: { bg: "from-tangerine-soft to-[#FFD6BF]", accent: "text-tangerine-deep" },
 };
 
-export function CollectionCard({ collection, className }: { collection: Collection; className?: string }) {
-  const items = getProductsInCollection(collection.slug);
+export function CollectionCard({ collection, products, className }: { collection: Collection; products: Product[]; className?: string }) {
+  const items = productsInCollection(products, collection);
   const cover = items[0]?.images[0];
-  const theme = THEME_CLASSES[collection.theme];
+  const theme = THEME_CLASSES[collection.theme] ?? THEME_CLASSES.pink;
 
   return (
     <Link

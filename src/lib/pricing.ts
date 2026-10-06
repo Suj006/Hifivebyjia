@@ -1,14 +1,14 @@
 /**
  * Pricing & discount engine.
  *
- * Pure functions: given cart lines, the catalogue and the discount rules, it
- * returns every number the cart, checkout and WhatsApp message need. Phase 2
- * runs this same module on the server to re-verify totals before creating a
- * Razorpay order, so the frontend never has to change.
+ * Pure functions: given cart lines, products, shop settings and discount rules
+ * it returns every number the cart, checkout and WhatsApp message need. The
+ * same module runs on the server when an order is placed, so the admin always
+ * sees totals the server calculated itself.
  */
 import { siteConfig } from "@/config/site";
-import { discounts as discountRules } from "@/data/discounts";
 import type {
+  AppliedCoupon,
   AppliedDiscount,
   CartLine,
   CartTotals,
@@ -16,14 +16,21 @@ import type {
   Discount,
   PricedLine,
   Product,
+  StoreSettings,
 } from "@/types";
 
 export interface PricingContext {
+  settings: Pick<StoreSettings, "shippingEnabled" | "standardShippingRate" | "freeShippingThreshold">;
+  /** Automatic offers (no code needed). */
+  autoDiscounts?: Discount[];
+  /** The coupon the customer entered, with its rule as returned by the server. */
+  coupon?: AppliedCoupon | null;
   now?: Date;
-  /** Phase 1: true when no previous order request exists on this device. */
+  /** True when this customer has no previous orders. */
   isFirstOrder?: boolean;
-  discounts?: Discount[];
 }
+
+const RS = siteConfig.commerce.currencySymbol;
 
 export function unitPriceFor(product: Product, customisation?: CustomisationValues): number {
   let price = product.price;
@@ -64,7 +71,7 @@ function inScope(discount: Discount, line: PricedLine): boolean {
   }
 }
 
-function isLive(d: Discount, now: Date) {
+export function isLive(d: Discount, now = new Date()) {
   if (!d.active) return false;
   if (d.startsAt && now < new Date(d.startsAt)) return false;
   if (d.endsAt && now > new Date(d.endsAt)) return false;
@@ -77,16 +84,17 @@ export function evaluateDiscount(
   d: Discount,
   lines: PricedLine[],
   subtotal: number,
-  ctx: Required<Pick<PricingContext, "now" | "isFirstOrder">>,
+  ctx: { now: Date; isFirstOrder: boolean },
 ): Evaluation {
   if (!d.active) return { ok: false, reason: "This code is not active right now." };
+  if (d.usageLimit && (d.usageCount ?? 0) >= d.usageLimit) return { ok: false, reason: "Sorry, this code has reached its usage limit." };
   if (d.startsAt && ctx.now < new Date(d.startsAt)) return { ok: false, reason: "This offer hasn’t started yet." };
   if (d.endsAt && ctx.now > new Date(d.endsAt)) return { ok: false, reason: "Sorry, this offer has ended." };
   if (d.firstOrderOnly && !ctx.isFirstOrder) return { ok: false, reason: "This code is for first orders only." };
   if (d.minimumOrder && subtotal < d.minimumOrder) {
     return {
       ok: false,
-      reason: `Add ${siteConfig.commerce.currencySymbol}${d.minimumOrder - subtotal} more to use this code (minimum order ${siteConfig.commerce.currencySymbol}${d.minimumOrder}).`,
+      reason: `Add ${RS}${d.minimumOrder - subtotal} more to use this code (minimum order ${RS}${d.minimumOrder}).`,
     };
   }
 
@@ -119,21 +127,11 @@ export function evaluateDiscount(
   return amount > 0 ? { ok: true, amount } : { ok: false, reason: "This code doesn’t apply to your cart." };
 }
 
-export function findCoupon(code: string, rules: Discount[] = discountRules): Discount | undefined {
-  const normalised = code.trim().toUpperCase();
-  return rules.find((d) => d.code?.toUpperCase() === normalised);
-}
-
-export function calculateTotals(
-  cartLines: CartLine[],
-  productMap: Record<string, Product>,
-  couponCode: string | null,
-  context: PricingContext = {},
-): CartTotals {
+export function calculateTotals(cartLines: CartLine[], productMap: Record<string, Product>, context: PricingContext): CartTotals {
   const now = context.now ?? new Date();
   const isFirstOrder = context.isFirstOrder ?? true;
-  const rules = context.discounts ?? discountRules;
-  const { shipping: ship, tax: taxCfg } = siteConfig;
+  const ship = context.settings;
+  const taxCfg = siteConfig.tax;
 
   const lines = priceLines(cartLines, productMap);
   const purchasable = lines.filter((l) => l.available);
@@ -143,18 +141,18 @@ export function calculateTotals(
   const applied: AppliedDiscount[] = [];
   let couponError: string | undefined;
 
-  for (const d of rules.filter((r) => r.automatic && !r.code && isLive(r, now))) {
+  for (const d of (context.autoDiscounts ?? []).filter((r) => r.automatic && !r.code && isLive(r, now))) {
     const res = evaluateDiscount(d, purchasable, subtotal, { now, isFirstOrder });
     if (res.ok) applied.push({ discountId: d.id, label: d.label, amount: res.amount });
   }
 
-  if (couponCode) {
-    const coupon = findCoupon(couponCode, rules);
-    if (!coupon) {
-      couponError = "Hmm, that code doesn’t look right. Please check and try again.";
+  const coupon = context.coupon;
+  if (coupon) {
+    if (coupon.error || !coupon.rule) {
+      couponError = coupon.error ?? "Hmm, that code doesn’t look right. Please check and try again.";
     } else {
-      const res = evaluateDiscount(coupon, purchasable, subtotal, { now, isFirstOrder });
-      if (res.ok) applied.push({ discountId: coupon.id, label: coupon.label, code: coupon.code, amount: res.amount });
+      const res = evaluateDiscount(coupon.rule, purchasable, subtotal, { now, isFirstOrder });
+      if (res.ok) applied.push({ discountId: coupon.rule.id, label: coupon.rule.label, code: coupon.code, amount: res.amount });
       else couponError = res.reason;
     }
   }
@@ -168,12 +166,12 @@ export function calculateTotals(
   let shipping = 0;
   let shippingLabel = "—";
   let freeShippingRemaining = 0;
-  if (ship.enabled && itemCount > 0) {
+  if (ship.shippingEnabled && itemCount > 0) {
     if (ship.freeShippingThreshold && afterDiscount >= ship.freeShippingThreshold) {
       shippingLabel = "Free";
     } else {
-      shipping = ship.standardRate;
-      shippingLabel = `${siteConfig.commerce.currencySymbol}${ship.standardRate}`;
+      shipping = ship.standardShippingRate;
+      shippingLabel = shipping ? `${RS}${shipping}` : "Free";
       freeShippingRemaining = ship.freeShippingThreshold ? ship.freeShippingThreshold - afterDiscount : 0;
     }
   }
@@ -182,7 +180,7 @@ export function calculateTotals(
   let tax = 0;
   let taxLabel: string = taxCfg.disabledLabel;
   if (taxCfg.enabled && subtotal > 0) {
-    const ratio = subtotal > 0 ? afterDiscount / subtotal : 0;
+    const ratio = afterDiscount / subtotal;
     for (const l of purchasable) {
       const rate = l.product.gstRate ?? taxCfg.defaultRate;
       if (rate == null) continue;
@@ -211,7 +209,19 @@ export function calculateTotals(
   };
 }
 
-/** Active coupon codes that can be advertised (e.g. in the cart). */
-export function getPromotedCoupons(now = new Date()): Discount[] {
-  return discountRules.filter((d) => d.code && isLive(d, now));
+/** Public, shareable view of a coupon rule (what the browser is allowed to see). */
+export function describeDiscount(d: Discount): string {
+  const RS2 = RS;
+  const parts: string[] = [];
+  if (d.kind === "buy_x_get_y" && d.buyXGetY) {
+    parts.push(`Buy ${d.buyXGetY.buyQuantity}, get ${d.buyXGetY.getQuantity} ${d.buyXGetY.getDiscountPercent === 100 ? "free" : `${d.buyXGetY.getDiscountPercent}% off`}`);
+  } else if (d.valueType === "percentage") {
+    parts.push(`${d.value}% off`);
+    if (d.maximumDiscount) parts.push(`up to ${RS2}${d.maximumDiscount}`);
+  } else {
+    parts.push(`${RS2}${d.value} off`);
+  }
+  if (d.minimumOrder) parts.push(`on orders of ${RS2}${d.minimumOrder}+`);
+  if (d.firstOrderOnly) parts.push("first order only");
+  return parts.join(" · ");
 }
